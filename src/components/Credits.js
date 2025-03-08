@@ -15,7 +15,7 @@ const Credits = () => {
         <p>
           Connect on{' '}
           <a
-            href="https://www.linkedin.com/in/aadil-badhra-9082123239a"
+            href="www.linkedin.com/in/aadil-badhra-09819931a"
             target="_blank"
             rel="noopener noreferrer"
           >
