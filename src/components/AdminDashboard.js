@@ -55,7 +55,7 @@ const AdminDashboard = ({ showToast }) => {
   // Faculty management functions
   const fetchFaculties = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/faculty');
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty`);
       if (res.data.success) {
         setFaculties(res.data.faculties);
       }
@@ -67,7 +67,7 @@ const AdminDashboard = ({ showToast }) => {
   const handleAddFaculty = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/faculty', newFaculty);
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty`, newFaculty);
       if (res.data.success) {
         setFaculties([...faculties, res.data.newFaculty]);
         setNewFaculty({ name: '', department: '', position: '', username: '', password: '' });
@@ -102,7 +102,7 @@ const AdminDashboard = ({ showToast }) => {
 
   const saveEditedFaculty = async (facultyId) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/admin/faculty/${facultyId}`, editingFacultyData);
+      const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty/${facultyId}`, editingFacultyData);
       if (res.data.success) {
         setFaculties(faculties.map(f => f.id === facultyId ? res.data.faculty : f));
         setEditingFacultyId(null);
@@ -115,7 +115,7 @@ const AdminDashboard = ({ showToast }) => {
 
   const handleDeleteFaculty = async (facultyId) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/api/admin/faculty/${facultyId}`);
+      const res = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty/${facultyId}`);
       if (res.data.success) {
         setFaculties(faculties.filter(f => f.id !== facultyId));
         showToast("Faculty deleted successfully.", "success");
@@ -128,7 +128,7 @@ const AdminDashboard = ({ showToast }) => {
   // Booking management functions
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/bookings');
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/bookings`);
       if (res.data.success) {
         setBookings(res.data.bookings);
       }
@@ -137,11 +137,9 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // For now, we use the existing endpoint to update only the status;
-  // With inline editing, we assume a general booking update endpoint is available.
   const saveEditedBooking = async (bookingId) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/admin/booking/${bookingId}`, editBookingData);
+      const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/booking/${bookingId}`, editBookingData);
       if (res.data.success) {
         setBookings(bookings.map(b => b.id === bookingId ? res.data.booking : b));
         setEditBookingId(null);
@@ -177,10 +175,9 @@ const AdminDashboard = ({ showToast }) => {
     });
   };
 
-  // Allows updating only the status (Approve/Reject) for bookings when not editing
   const updateBookingStatus = async (bookingId, status) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/admin/booking/${bookingId}/status`, { status });
+      const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/booking/${bookingId}/status`, { status });
       if (res.data.success) {
         setBookings(bookings.map(b => b.id === bookingId ? res.data.booking : b));
         showToast(`Booking ${status}.`, "success");
