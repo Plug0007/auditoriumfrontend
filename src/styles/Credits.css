@@ -1,11 +1,13 @@
-/* Credits.css */
 :root {
-  --platinum: #E1E6E7;
-  --light-coral: #DC9389;
-  --moonstone: #63A4B7;
-  --baby-powder: #FDFEFC;
-  --cadet-gray: #9EB4BB;
-  --gradient: linear-gradient(45deg, var(--platinum), var(--light-coral), var(--moonstone), var(--baby-powder), var(--cadet-gray));
+  /* New Premium Color Palette */
+  --primary: #0D3B66;       /* Dark Blue */
+  --secondary: #FAF0CA;     /* Light Cream */
+  --accent: #F4D35E;        /* Yellow */
+  --tertiary: #EE964B;      /* Orange */
+  --neutral: #F4F4F9;       /* Light Gray */
+  
+  /* Gradient using the new palette */
+  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--tertiary));
 }
 
 .credits-container {
@@ -18,7 +20,7 @@
 }
 
 .credits-card {
-  background: var(--baby-powder);
+  background: var(--neutral);
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 40px 30px;
@@ -31,13 +33,13 @@
 .credits-card h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: var(--moonstone);
+  color: var(--accent);
 }
 
 .credits-card p {
   font-size: 1.1rem;
   margin-bottom: 15px;
-  color: var(--cadet-gray);
+  color: var(--primary);
   line-height: 1.5;
 }
 
