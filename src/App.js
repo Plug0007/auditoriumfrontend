@@ -1,8 +1,8 @@
+// frontend/src/App.js
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Intro from './components/Intro';
-import Home from './components/Home';
+import Intro from './components/Intro'; // or PwaIntro if you prefer
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard';
@@ -14,7 +14,7 @@ function App() {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
 
-  const showAlert = (msg, type = 'success') => {
+  const showToast = (msg, type = 'success') => {
     setAlertMessage(msg);
     setAlertType(type);
   };
@@ -23,19 +23,19 @@ function App() {
     <>
       <Header />
       {alertMessage && (
-        <AlertModal message={alertMessage} type={alertType} onClose={() => setAlertMessage('')} />
+        <AlertModal 
+          message={alertMessage} 
+          type={alertType} 
+          onClose={() => setAlertMessage('')} 
+        />
       )}
       <Routes>
-        <Routes>
-        
         <Route path="/" element={<Intro />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/faculty" element={<FacultyDashboard />} />
+        <Route path="/admin" element={<AdminDashboard showToast={showToast} />} />
+        <Route path="/faculty" element={<FacultyDashboard showToast={showToast} />} />
         <Route path="/credits" element={<Credits />} />
         <Route path="*" element={<Intro />} />
-        </Routes>
-
       </Routes>
     </>
   );
