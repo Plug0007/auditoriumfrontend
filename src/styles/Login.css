@@ -1,9 +1,8 @@
 :root {
-  --primary: #1C1B1B;
-  --secondary: #F0E6D2;
-  --accent: #D4AF37;
-  --tertiary: #8B4513;
-  --neutral: #EFEFEF;
+  --primary: #3674B5;
+  --secondary: #578FCA;
+  --accent: #A1E3F9;
+  --neutral: #D1F8EF;
 }
 
 .login-container {
@@ -93,7 +92,6 @@ button[type="submit"]:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
 @media (max-width: 480px) {
   .login-container {
     padding: 20px;
