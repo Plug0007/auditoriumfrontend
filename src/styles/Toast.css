@@ -2,11 +2,11 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background: var(--primary); /* Dark Blue */
-  color: var(--neutral);      /* Light Gray */
+  background: var(--primary);
+  color: var(--neutral);
   padding: 15px 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   opacity: 0.95;
   animation: slideIn 0.5s ease-out;
   z-index: 1000;
@@ -34,3 +34,4 @@
     font-size: 0.85rem;
   }
 }
+
