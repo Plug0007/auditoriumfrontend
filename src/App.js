@@ -26,12 +26,16 @@ function App() {
         <AlertModal message={alertMessage} type={alertType} onClose={() => setAlertMessage('')} />
       )}
       <Routes>
+        <Routes>
+        
         <Route path="/" element={<Intro />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminDashboard showToast={showAlert} />} />
-        <Route path="/faculty" element={<FacultyDashboard showToast={showAlert} />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/faculty" element={<FacultyDashboard />} />
         <Route path="/credits" element={<Credits />} />
+        <Route path="*" element={<Intro />} />
+        </Routes>
+
       </Routes>
     </>
   );
