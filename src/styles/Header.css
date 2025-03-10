@@ -1,12 +1,14 @@
-/* Header.css */
+/* frontend/src/styles/Header.css */
 :root {
-  /* Using your color palette */
-  --platinum: #E1E6E7;
-  --light-coral: #DC9389;
-  --moonstone: #63A4B7;
-  --baby-powder: #FDFEFC;
-  --cadet-gray: #9EB4BB;
-  --gradient: linear-gradient(45deg, var(--platinum), var(--light-coral), var(--moonstone), var(--baby-powder), var(--cadet-gray));
+  /* New Premium Color Palette */
+  --primary: #0D3B66;        /* Dark Blue */
+  --secondary: #FAF0CA;      /* Light Cream */
+  --accent: #F4D35E;         /* Yellow */
+  --tertiary: #EE964B;       /* Orange */
+  --neutral: #F4F4F9;        /* Light Gray */
+  
+  /* Gradient for header background */
+  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--tertiary));
 }
 
 .main-header {
@@ -15,14 +17,14 @@
   align-items: center;
   padding: 15px 30px;
   background: var(--gradient);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   flex-wrap: wrap;
 }
 
 .logo a {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--cadet-gray);
+  color: var(--neutral);
   text-decoration: none;
   transition: transform 0.3s ease;
 }
@@ -40,18 +42,18 @@
 .nav-item {
   margin-left: 20px;
   font-size: 1rem;
-  color: var(--cadet-gray);
+  color: var(--neutral);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-item:hover {
-  color: var(--moonstone);
+  color: var(--accent);
 }
 
 .logout-btn {
   background: transparent;
-  border: 1px solid var(--cadet-gray);
+  border: 1px solid var(--neutral);
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
