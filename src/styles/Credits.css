@@ -1,13 +1,12 @@
 :root {
-  /* New Premium Color Palette */
-  --primary: #0D3B66;       /* Dark Blue */
-  --secondary: #FAF0CA;     /* Light Cream */
-  --accent: #F4D35E;        /* Yellow */
-  --tertiary: #EE964B;      /* Orange */
-  --neutral: #F4F4F9;       /* Light Gray */
+  --primary: #1C1B1B;       /* Slightly different dark for contrast */
+  --secondary: #F0E6D2;
+  --accent: #D4AF37;
+  --tertiary: #8B4513;
+  --neutral: #EFEFEF;
   
-  /* Gradient using the new palette */
-  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--tertiary));
+  /* Gradient using luxury palette */
+  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
 }
 
 .credits-container {
@@ -22,7 +21,7 @@
 .credits-card {
   background: var(--neutral);
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   padding: 40px 30px;
   text-align: center;
   max-width: 500px;
