@@ -1,7 +1,6 @@
-/* frontend/src/styles/FacultyDashboard.css */
 .faculty-dashboard {
   padding: 20px;
-  background: var(--baby-powder);
+  background: var(--neutral);
   min-height: 100vh;
   animation: fadeIn 1s ease;
 }
@@ -9,7 +8,7 @@
 .faculty-dashboard h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--moonstone);
+  color: var(--accent);
   font-weight: 500;
 }
 
@@ -21,7 +20,7 @@
 .tabs button {
   padding: 12px 20px;
   margin: 0 5px;
-  background: var(--platinum);
+  background: var(--primary);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -31,8 +30,8 @@
 
 .tabs button.active,
 .tabs button:hover {
-  background: var(--moonstone);
-  color: var(--baby-powder);
+  background: var(--accent);
+  color: var(--neutral);
 }
 
 .new-booking,
@@ -47,7 +46,7 @@
 .my-bookings h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: var(--cadet-gray);
+  color: var(--primary);
 }
 
 .form-group {
@@ -57,7 +56,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: var(--cadet-gray);
+  color: var(--primary);
   font-size: 0.95em;
 }
 
@@ -66,7 +65,7 @@
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  border: 2px solid var(--platinum);
+  border: 2px solid var(--primary);
   border-radius: 8px;
   font-size: 0.95em;
   transition: border-color 0.3s ease;
@@ -75,24 +74,24 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: var(--moonstone);
+  border-color: var(--accent);
   outline: none;
 }
 
 .submit-btn {
   width: 100%;
   padding: 12px;
-  background: var(--moonstone);
+  background: var(--accent);
   border: none;
   border-radius: 8px;
-  color: var(--baby-powder);
+  color: var(--neutral);
   font-size: 1em;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: var(--cadet-gray);
+  background: var(--tertiary);
 }
 
 .my-bookings table {
@@ -104,7 +103,7 @@
 
 .my-bookings table th,
 .my-bookings table td {
-  border: 1px solid var(--platinum);
+  border: 1px solid var(--primary);
   padding: 12px;
   text-align: left;
 }
