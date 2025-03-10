@@ -1,25 +1,25 @@
 :root {
-  --primary: #0D3B66;       /* Dark Blue */
-  --secondary: #FAF0CA;     /* Light Cream */
-  --accent: #F4D35E;        /* Yellow */
-  --tertiary: #EE964B;      /* Orange */
-  --neutral: #F4F4F9;       /* Light Gray */
+  --primary: #1C1B1B;
+  --secondary: #F0E6D2;
+  --accent: #D4AF37;
+  --tertiary: #8B4513;
+  --neutral: #EFEFEF;
 }
 
 .login-container {
   max-width: 400px;
   margin: 80px auto;
   padding: 40px;
-  background: var(--secondary);  /* Light Cream background */
+  background: var(--secondary);
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   animation: slideIn 0.8s ease;
 }
 
 .login-container h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--primary);  /* Dark Blue text for strong contrast */
+  color: var(--primary);
   font-weight: 500;
 }
 
