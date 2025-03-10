@@ -1,8 +1,7 @@
-// frontend/src/App.js
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Intro from './components/Intro'; // or PwaIntro if you prefer
+import Intro from './components/Intro'; // or use PwaIntro if desired
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard';
@@ -20,7 +19,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="app-container">
       <Header />
       {alertMessage && (
         <AlertModal 
@@ -37,7 +36,7 @@ function App() {
         <Route path="/credits" element={<Credits />} />
         <Route path="*" element={<Intro />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
