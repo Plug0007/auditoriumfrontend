@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-/* Define your new premium color palette */
 :root {
-  --primary: #0D3B66;        /* Dark Blue */
-  --secondary: #FAF0CA;      /* Light Cream */
-  --accent: #F4D35E;         /* Yellow */
-  --tertiary: #EE964B;       /* Orange */
-  --neutral: #F4F4F9;        /* Light Gray */
+  /* Luxury Color Palette */
+  --primary: #1C1C1C;        /* Dark (for headings, text) */
+  --secondary: #F0E6D2;      /* Ivory (for backgrounds) */
+  --accent: #D4AF37;         /* Gold (for accents, buttons) */
+  --tertiary: #8B4513;       /* Deep Brown (for hover, contrast) */
+  --neutral: #EFEFEF;        /* Light Gray (for lighter elements) */
   
-  /* Example gradient using the new palette */
-  --gradient-primary: linear-gradient(45deg, var(--primary), var(--accent), var(--tertiary));
+  /* Gradient (example) */
+  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
   background: var(--neutral);
   color: var(--primary);
 }
@@ -36,7 +36,7 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-/* Responsive layout adjustments for larger screens */
+/* Layout adjustments */
 @media (min-width: 768px) {
   .container {
     width: 70%;
@@ -49,7 +49,7 @@ a:hover {
   }
 }
 
-/* Smooth transitions for interactive elements */
+/* Interactive transitions */
 button, a {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -59,7 +59,7 @@ button:hover, a:hover {
   color: var(--neutral);
 }
 
-/* Responsive adjustments for smaller devices */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   body {
     font-size: 0.9rem;
