@@ -45,3 +45,39 @@
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .credits-container {
+    padding: 10px;
+  }
+  .credits-card {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+  .credits-card h1 {
+    font-size: 2rem;
+  }
+  .credits-card p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .credits-container {
+    padding: 5px;
+  }
+  .credits-card {
+    padding: 20px 15px;
+    max-width: 95%;
+  }
+  .credits-card h1 {
+    font-size: 1.8rem;
+  }
+  .credits-card p {
+    font-size: 0.95rem;
+  }
+  .credits-card a {
+    font-size: 0.9em;
+  }
+}
