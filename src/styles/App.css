@@ -19,7 +19,6 @@ body {
   padding: 0;
   /* Replace background color with one of your palette colors */
   background: var(--baby-powder);
-  /* You can keep the dark text for readability or change it to a palette variable if preferred */
   color: #333;
 }
 
@@ -41,7 +40,7 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-/* Responsive layout adjustments */
+/* Responsive layout adjustments for larger screens */
 @media (min-width: 768px) {
   .container {
     width: 70%;
@@ -63,4 +62,31 @@ button:hover, a:hover {
   /* You can also use the gradient or a palette color for hover effects */
   background-color: var(--moonstone);
   color: var(--platinum);
+}
+
+/* Responsive adjustments for smaller devices */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+  }
+  .container {
+    width: 95%;
+    padding: 0 10px;
+  }
+  a, button {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.85rem;
+  }
+  .container {
+    width: 98%;
+    padding: 0 5px;
+  }
+  a, button {
+    font-size: 0.8em;
+  }
 }
