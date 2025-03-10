@@ -51,7 +51,7 @@ const AdminDashboard = ({ showToast }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBookings();
-    }, 30000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []); // Adjust dependencies as needed (e.g., [facultyId])
 
