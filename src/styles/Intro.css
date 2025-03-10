@@ -1,36 +1,51 @@
-/* frontend/src/styles/Intro.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  --primary: #0D3B66;        /* Dark Blue */
+  --secondary: #FAF0CA;      /* Light Cream */
+  --accent: #F4D35E;         /* Yellow */
+  --tertiary: #EE964B;       /* Orange */
+  --neutral: #F4F4F9;        /* Light Gray */
+}
+
 .intro-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  /* Create a striking gradient background */
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--tertiary));
   padding: 20px;
   animation: fadeIn 1.5s ease;
-  color: #fff;
+  color: var(--neutral);
 }
 
 .intro-content {
   text-align: center;
   max-width: 600px;
   padding: 20px;
+  background: var(--secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .intro-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
   font-weight: 600;
+  color: var(--primary);
 }
 
 .intro-content p {
   font-size: 1.25rem;
   margin-bottom: 40px;
   line-height: 1.5;
+  color: var(--primary);
 }
 
 .continue-btn {
-  background: #fff;
-  color: #333;
+  background: var(--accent);
+  color: var(--primary);
   padding: 15px 30px;
   font-size: 1.1rem;
   border: none;
@@ -41,7 +56,7 @@
 
 .continue-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 @keyframes fadeIn {
