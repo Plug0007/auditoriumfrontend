@@ -1,5 +1,6 @@
-/* Define your color palette variables */
+/* Header.css */
 :root {
+  /* Using your color palette */
   --platinum: #E1E6E7;
   --light-coral: #DC9389;
   --moonstone: #63A4B7;
@@ -14,8 +15,7 @@
   align-items: center;
   padding: 15px 30px;
   background: var(--gradient);
-  color: var(--cadet-gray);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   flex-wrap: wrap;
 }
 
@@ -73,8 +73,7 @@
     flex-wrap: wrap;
   }
   .nav-item, .logout-btn {
-    margin-left: 0;
-    margin-right: 10px;
+    margin: 5px 10px 0 0;
     font-size: 0.9rem;
   }
 }
