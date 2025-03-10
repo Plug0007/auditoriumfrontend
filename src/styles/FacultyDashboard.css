@@ -1,6 +1,7 @@
+/* frontend/src/styles/FacultyDashboard.css */
 .faculty-dashboard {
   padding: 20px;
-  background: #fff;
+  background: var(--baby-powder);
   min-height: 100vh;
   animation: fadeIn 1s ease;
 }
@@ -8,7 +9,7 @@
 .faculty-dashboard h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--moonstone);
   font-weight: 500;
 }
 
@@ -20,7 +21,7 @@
 .tabs button {
   padding: 12px 20px;
   margin: 0 5px;
-  background: #e0e7ff;
+  background: var(--platinum);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -30,21 +31,23 @@
 
 .tabs button.active,
 .tabs button:hover {
-  background: #667eea;
-  color: #fff;
+  background: var(--moonstone);
+  color: var(--baby-powder);
 }
 
 .new-booking,
 .my-bookings {
   margin: 20px auto;
   max-width: 600px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .new-booking h3,
 .my-bookings h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: #444;
+  color: var(--cadet-gray);
 }
 
 .form-group {
@@ -54,7 +57,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #555;
+  color: var(--cadet-gray);
   font-size: 0.95em;
 }
 
@@ -63,7 +66,7 @@
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--platinum);
   border-radius: 8px;
   font-size: 0.95em;
   transition: border-color 0.3s ease;
@@ -72,35 +75,36 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #667eea;
+  border-color: var(--moonstone);
   outline: none;
 }
 
 .submit-btn {
   width: 100%;
   padding: 12px;
-  background: #667eea;
+  background: var(--moonstone);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: var(--baby-powder);
   font-size: 1em;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: #5a67d8;
+  background: var(--cadet-gray);
 }
 
 .my-bookings table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  font-size: 0.95em;
 }
 
 .my-bookings table th,
 .my-bookings table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--platinum);
   padding: 12px;
   text-align: left;
 }
