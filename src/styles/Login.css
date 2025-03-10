@@ -61,3 +61,42 @@
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-container {
+    margin: 60px auto;
+    padding: 30px;
+  }
+  .login-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  .login-container label {
+    font-size: 0.85em;
+  }
+  .login-container input,
+  .login-container button {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    margin: 40px auto;
+    padding: 20px;
+  }
+  .login-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  .login-container label {
+    font-size: 0.8em;
+  }
+  .login-container input,
+  .login-container button {
+    font-size: 0.9em;
+    padding: 8px;
+  }
+}
