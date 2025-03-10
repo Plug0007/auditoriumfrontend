@@ -91,7 +91,7 @@
 }
 
 .submit-btn:hover {
-  background: var(--tertiary);
+  background: var(--secondary);
 }
 
 .my-bookings table {
