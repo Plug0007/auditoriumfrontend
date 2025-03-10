@@ -50,7 +50,7 @@ const FacultyDashboard = ({ showToast }) => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/faculty/bookings?facultyId=${facultyId}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/bookings?facultyId=${facultyId}`);
       if (res.data.success) {
         setBookings(res.data.bookings);
       }
@@ -66,7 +66,7 @@ const FacultyDashboard = ({ showToast }) => {
       // Immediately show "Calculating..." alert
       showToast("Calculating your booking...", "info");
 
-      const res = await axios.post('http://localhost:5000/api/faculty/booking', { facultyId, ...bookingData });
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking`, { facultyId, ...bookingData });
       if (res.data.success) {
         // Reset the booking form
         setBookingData({
@@ -119,7 +119,7 @@ const FacultyDashboard = ({ showToast }) => {
   // Save the edited booking (allowed only if status is "Pending")
   const saveEditedBooking = async (bookingId) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/faculty/booking/${bookingId}`, editBookingData);
+      const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`, editBookingData);
       if (res.data.success) {
         showToast("Your booking has been updated.", "success");
         setEditBookingId(null);
@@ -288,8 +288,8 @@ const FacultyDashboard = ({ showToast }) => {
                       </td>
                       <td>{b.status}</td>
                       <td>
-                        <button onClick={() => saveEditedBooking(b.id)}>Save</button>
-                        <button onClick={cancelEdit}>Cancel</button>
+                        <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
+                        <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
                       </td>
                     </>
                   ) : (
@@ -300,7 +300,7 @@ const FacultyDashboard = ({ showToast }) => {
                       <td>{b.status}</td>
                       <td>
                         {b.status === 'Pending' && (
-                          <button onClick={() => startEditBooking(b)}>Edit</button>
+                          <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
                         )}
                       </td>
                     </>
