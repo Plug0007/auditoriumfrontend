@@ -6,23 +6,19 @@ const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  // On component mount, check localStorage for user info
+  // Load user info from localStorage if available
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
   const handleLogout = () => {
-    // Remove user from localStorage
     localStorage.removeItem('user');
     setUser(null);
-    // Use "replace" so that protected pages are removed from history
     navigate('/login', { replace: true });
   };
 
-  // Determine the home path based on user role
+  // Set the home path based on user role
   let homePath = '/';
   if (user) {
     homePath = user.role === 'admin' ? '/admin' : '/faculty';
