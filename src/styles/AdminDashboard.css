@@ -1,6 +1,7 @@
+/* frontend/src/styles/AdminDashboard.css */
 .admin-dashboard {
   padding: 20px;
-  background: #fff;
+  background: var(--baby-powder);
   min-height: 100vh;
   animation: fadeIn 1s ease;
 }
@@ -8,7 +9,7 @@
 .admin-dashboard h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--moonstone);
   font-weight: 500;
 }
 
@@ -20,7 +21,7 @@
 .tabs button {
   padding: 12px 20px;
   margin: 0 5px;
-  background: #e0e7ff;
+  background: var(--platinum);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -30,8 +31,8 @@
 
 .tabs button.active,
 .tabs button:hover {
-  background: #667eea;
-  color: #fff;
+  background: var(--moonstone);
+  color: var(--baby-powder);
 }
 
 .faculty-management,
@@ -44,7 +45,7 @@
 .booking-management h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: #444;
+  color: var(--cadet-gray);
 }
 
 .faculty-management form input,
@@ -57,28 +58,28 @@
 
 .faculty-management form input,
 .faculty-management form select {
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--platinum);
   border-radius: 8px;
   transition: border-color 0.3s ease;
 }
 
 .faculty-management form input:focus,
 .faculty-management form select:focus {
-  border-color: #667eea;
+  border-color: var(--moonstone);
   outline: none;
 }
 
 .faculty-management form button {
-  background: #667eea;
+  background: var(--moonstone);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: var(--baby-powder);
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .faculty-management form button:hover {
-  background: #5a67d8;
+  background: var(--cadet-gray);
 }
 
 .faculty-management table,
@@ -92,7 +93,7 @@
 .faculty-management table td,
 .booking-management table th,
 .booking-management table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--platinum);
   padding: 12px;
   text-align: left;
 }
@@ -119,57 +120,57 @@
 }
 
 .btn-edit {
-  background: #ffc107;
-  color: #fff;
+  background: var(--light-coral);
+  color: var(--baby-powder);
 }
 
 .btn-edit:hover {
-  background: #e0a800;
+  background: var(--cadet-gray);
 }
 
 .btn-save {
-  background: #28a745;
-  color: #fff;
+  background: var(--moonstone);
+  color: var(--baby-powder);
 }
 
 .btn-save:hover {
-  background: #218838;
+  background: var(--cadet-gray);
 }
 
 .btn-cancel {
-  background: #6c757d;
-  color: #fff;
+  background: var(--cadet-gray);
+  color: var(--baby-powder);
 }
 
 .btn-cancel:hover {
-  background: #5a6268;
+  background: var(--moonstone);
 }
 
 .btn-approve {
-  background: #007bff;
-  color: #fff;
+  background: var(--moonstone);
+  color: var(--baby-powder);
 }
 
 .btn-approve:hover {
-  background: #0069d9;
+  background: var(--cadet-gray);
 }
 
 .btn-reject {
-  background: #dc3545;
-  color: #fff;
+  background: var(--light-coral);
+  color: var(--baby-powder);
 }
 
 .btn-reject:hover {
-  background: #c82333;
+  background: var(--cadet-gray);
 }
 
 .btn-delete {
-  background: #dc3545;
-  color: #fff;
+  background: var(--light-coral);
+  color: var(--baby-powder);
 }
 
 .btn-delete:hover {
-  background: #c82333;
+  background: var(--cadet-gray);
 }
 
 @keyframes fadeIn {
