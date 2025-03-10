@@ -49,7 +49,7 @@ const FacultyDashboard = ({ showToast }) => {
     if (facultyId) {
       const interval = setInterval(() => {
         fetchBookings();
-      }, 30000);
+      }, 10000);
       return () => clearInterval(interval);
     }
   }, [facultyId]);
