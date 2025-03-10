@@ -1,11 +1,13 @@
-/* frontend/src/styles/PwaIntro.css */
 :root {
-  --platinum: #E1E6E7;
-  --light-coral: #DC9389;
-  --moonstone: #63A4B7;
-  --baby-powder: #FDFEFC;
-  --cadet-gray: #9EB4BB;
-  --gradient: linear-gradient(45deg, var(--platinum), var(--light-coral), var(--moonstone), var(--baby-powder), var(--cadet-gray));
+  /* New Premium Color Palette */
+  --primary: #0D3B66;       /* Dark Blue */
+  --secondary: #FAF0CA;     /* Light Cream */
+  --accent: #F4D35E;        /* Yellow */
+  --tertiary: #EE964B;      /* Orange */
+  --neutral: #F4F4F9;       /* Light Gray */
+  
+  /* Gradient for the background */
+  --gradient: linear-gradient(135deg, var(--primary), var(--accent), var(--tertiary));
 }
 
 .pwa-intro-container {
@@ -16,14 +18,14 @@
   background: var(--gradient);
   padding: 20px;
   animation: fadeIn 1s ease;
-  color: var(--cadet-gray);
+  color: var(--neutral);
   text-align: center;
 }
 
 .pwa-intro-content {
   max-width: 600px;
   padding: 20px;
-  background: var(--baby-powder);
+  background: var(--secondary);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -31,18 +33,19 @@
 .pwa-intro-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  color: var(--moonstone);
+  color: var(--primary);
 }
 
 .pwa-intro-content p {
   font-size: 1.25rem;
   margin-bottom: 40px;
   line-height: 1.5;
+  color: var(--primary);
 }
 
 .pwa-intro-btn {
-  background: var(--moonstone);
-  color: var(--baby-powder);
+  background: var(--accent);
+  color: var(--neutral);
   padding: 15px 30px;
   font-size: 1.1rem;
   border: none;
