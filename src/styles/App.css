@@ -1,23 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+/* Define your custom color palette */
+:root {
+  --platinum: #E1E6E7;
+  --light-coral: #DC9389;
+  --moonstone: #63A4B7;
+  --baby-powder: #FDFEFC;
+  --cadet-gray: #9EB4BB;
+
+  /* Example gradient using the palette */
+  --gradient-primary: linear-gradient(45deg, var(--platinum), var(--light-coral), var(--moonstone), var(--baby-powder), var(--cadet-gray));
+}
+
 body {
-  font-family: Arial, sans-serif;
+  /* Use the imported font */
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f0f2f5;
+  /* Replace background color with one of your palette colors */
+  background: var(--baby-powder);
+  /* You can keep the dark text for readability or change it to a palette variable if preferred */
   color: #333;
 }
 
 a {
-  color: #667eea;
+  /* Use one of the palette colors for links */
+  color: var(--moonstone);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #5a67d8;
+  /* Change link color on hover */
+  color: var(--light-coral);
 }
-
 
 .container {
   width: 90%;
@@ -44,6 +60,7 @@ button, a {
 }
 
 button:hover, a:hover {
-  background-color: #0d47a1;
-  color: #fff;
+  /* You can also use the gradient or a palette color for hover effects */
+  background-color: var(--moonstone);
+  color: var(--platinum);
 }
