@@ -1,102 +1,96 @@
-/* Login.css */
-.login-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 40px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.8s ease;
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  /* Use the theme gradient from variables.css */
+  background: var(--gradient-primary);
+  /* Using a light theme text color; adjust if needed */
+  color: var(--baby-powder);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-.login-container h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-  font-weight: 500;
+.logo a {
+  font-size: 1.8rem;
+  font-weight: 600;
+  /* Match text color with the theme */
+  color: var(--baby-powder);
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
-.login-container form div {
-  margin-bottom: 20px;
+.logo a:hover {
+  transform: scale(1.05);
 }
 
-.login-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.9em;
-  color: #666;
+.nav-links {
+  display: flex;
+  align-items: center;
 }
 
-.login-container input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1em;
-  transition: border-color 0.3s ease;
+.nav-links a {
+  margin-left: 20px;
+  font-size: 1rem;
+  /* Use the theme text color */
+  color: var(--baby-powder);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.login-container input:focus {
-  border-color: #667eea;
-  outline: none;
+.nav-links a:hover {
+  /* Change to a contrasting theme color on hover */
+  color: var(--cadet-gray);
 }
 
-.login-container button {
-  width: 100%;
-  padding: 12px;
-  background: #667eea;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 1em;
+.logout-button {
+  margin-left: 20px;
+  background: transparent;
+  border: 1px solid var(--baby-powder);
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: var(--baby-powder);
   cursor: pointer;
+  font-size: 1rem;
   transition: background 0.3s ease;
 }
 
-.login-container button:hover {
-  background: #5a67d8;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.logout-button:hover {
+  /* Slightly change the background on hover */
+  background: rgba(253, 254, 252, 0.2);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .login-container {
-    margin: 60px auto;
-    padding: 30px;
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
   }
-  .login-container h2 {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
+  .logo a {
+    font-size: 1.6rem;
   }
-  .login-container label {
-    font-size: 0.85em;
+  .nav-links {
+    margin-top: 10px;
+    flex-wrap: wrap;
   }
-  .login-container input,
-  .login-container button {
-    font-size: 0.95em;
-    padding: 10px;
+  .nav-links a,
+  .logout-button {
+    margin-left: 0;
+    margin-right: 10px;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
-  .login-container {
-    margin: 40px auto;
-    padding: 20px;
+  .main-header {
+    padding: 8px 15px;
   }
-  .login-container h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
+  .logo a {
+    font-size: 1.4rem;
   }
-  .login-container label {
-    font-size: 0.8em;
-  }
-  .login-container input,
-  .login-container button {
-    font-size: 0.9em;
-    padding: 8px;
+  .nav-links a,
+  .logout-button {
+    font-size: 0.9rem;
+    margin-right: 8px;
   }
 }
