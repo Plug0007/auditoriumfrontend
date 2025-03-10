@@ -1,7 +1,20 @@
 /* frontend/src/styles/AdminDashboard.css */
+
+:root {
+  /* New Premium Color Palette */
+  --primary: #0D3B66;       /* Dark Blue */
+  --secondary: #FAF0CA;     /* Light Cream */
+  --accent: #F4D35E;        /* Yellow */
+  --tertiary: #EE964B;      /* Orange */
+  --neutral: #F4F4F9;       /* Light Gray */
+  
+  /* Gradient for backgrounds */
+  --gradient-primary: linear-gradient(45deg, var(--primary), var(--accent), var(--tertiary));
+}
+
 .admin-dashboard {
   padding: 20px;
-  background: var(--baby-powder);
+  background: var(--neutral);
   min-height: 100vh;
   animation: fadeIn 1s ease;
 }
@@ -9,7 +22,7 @@
 .admin-dashboard h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--moonstone);
+  color: var(--accent);
   font-weight: 500;
 }
 
@@ -21,7 +34,7 @@
 .tabs button {
   padding: 12px 20px;
   margin: 0 5px;
-  background: var(--platinum);
+  background: var(--primary);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -31,21 +44,23 @@
 
 .tabs button.active,
 .tabs button:hover {
-  background: var(--moonstone);
-  color: var(--baby-powder);
+  background: var(--accent);
+  color: var(--neutral);
 }
 
 .faculty-management,
 .booking-management {
   margin: 20px auto;
   max-width: 900px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .faculty-management h3,
 .booking-management h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: var(--cadet-gray);
+  color: var(--primary);
 }
 
 .faculty-management form input,
@@ -58,28 +73,28 @@
 
 .faculty-management form input,
 .faculty-management form select {
-  border: 2px solid var(--platinum);
+  border: 2px solid var(--primary);
   border-radius: 8px;
   transition: border-color 0.3s ease;
 }
 
 .faculty-management form input:focus,
 .faculty-management form select:focus {
-  border-color: var(--moonstone);
+  border-color: var(--accent);
   outline: none;
 }
 
 .faculty-management form button {
-  background: var(--moonstone);
+  background: var(--accent);
   border: none;
   border-radius: 8px;
-  color: var(--baby-powder);
+  color: var(--neutral);
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .faculty-management form button:hover {
-  background: var(--cadet-gray);
+  background: var(--tertiary);
 }
 
 .faculty-management table,
@@ -87,13 +102,14 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  font-size: 0.95em;
 }
 
 .faculty-management table th,
 .faculty-management table td,
 .booking-management table th,
 .booking-management table td {
-  border: 1px solid var(--platinum);
+  border: 1px solid var(--primary);
   padding: 12px;
   text-align: left;
 }
@@ -101,6 +117,7 @@
 .filter {
   text-align: right;
   margin-bottom: 15px;
+  font-size: 1em;
 }
 
 /* Modern action buttons */
@@ -120,57 +137,51 @@
 }
 
 .btn-edit {
-  background: var(--light-coral);
-  color: var(--baby-powder);
+  background: var(--secondary);
+  color: var(--primary);
 }
-
 .btn-edit:hover {
-  background: var(--cadet-gray);
+  background: var(--accent);
 }
 
 .btn-save {
-  background: var(--moonstone);
-  color: var(--baby-powder);
+  background: var(--accent);
+  color: var(--neutral);
 }
-
 .btn-save:hover {
-  background: var(--cadet-gray);
+  background: var(--tertiary);
 }
 
 .btn-cancel {
-  background: var(--cadet-gray);
-  color: var(--baby-powder);
+  background: var(--primary);
+  color: var(--neutral);
 }
-
 .btn-cancel:hover {
-  background: var(--moonstone);
+  background: var(--accent);
 }
 
 .btn-approve {
-  background: var(--moonstone);
-  color: var(--baby-powder);
+  background: var(--accent);
+  color: var(--neutral);
 }
-
 .btn-approve:hover {
-  background: var(--cadet-gray);
+  background: var(--tertiary);
 }
 
 .btn-reject {
-  background: var(--light-coral);
-  color: var(--baby-powder);
+  background: var(--tertiary);
+  color: var(--neutral);
 }
-
 .btn-reject:hover {
-  background: var(--cadet-gray);
+  background: var(--primary);
 }
 
 .btn-delete {
-  background: var(--light-coral);
-  color: var(--baby-powder);
+  background: var(--tertiary);
+  color: var(--neutral);
 }
-
 .btn-delete:hover {
-  background: var(--cadet-gray);
+  background: var(--primary);
 }
 
 @keyframes fadeIn {
