@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
 const Header = () => {
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  // Check local storage for user info on mount
+  // On component mount, check localStorage for user info
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -15,10 +15,10 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
-    // Remove user from storage and update state
+    // Remove user from localStorage
     localStorage.removeItem('user');
     setUser(null);
-    // Replace history so user cannot navigate back
+    // Use "replace" so that protected pages are removed from history
     navigate('/login', { replace: true });
   };
 
