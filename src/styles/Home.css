@@ -1,8 +1,9 @@
 .home-container {
   padding: 40px;
   text-align: center;
-  background: #f0f2f5;
+  background: var(--secondary); /* Light Cream background */
   min-height: 80vh;
+  color: var(--primary); /* Dark Blue text */
 }
 
 /* Responsive adjustments */
