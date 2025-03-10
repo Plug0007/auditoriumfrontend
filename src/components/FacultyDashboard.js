@@ -37,9 +37,20 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
+  // Initial fetch when facultyId is available
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
+    }
+  }, [facultyId]);
+
+  // Poll every 30 seconds (30000 milliseconds) for updated bookings
+  useEffect(() => {
+    if (facultyId) {
+      const interval = setInterval(() => {
+        fetchBookings();
+      }, 30000);
+      return () => clearInterval(interval);
     }
   }, [facultyId]);
 
