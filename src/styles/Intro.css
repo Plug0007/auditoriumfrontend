@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
-  --primary: #1C1B1B;       /* Dark Blue-ish for headlines */
-  --secondary: #F0E6D2;     /* Light Cream */
-  --accent: #D4AF37;        /* Gold */
-  --tertiary: #8B4513;      /* Deep Brown */
-  --neutral: #EFEFEF;       /* Light Gray */
+  --primary: #3674B5;
+  --secondary: #578FCA;
+  --accent: #A1E3F9;
+  --neutral: #D1F8EF;
 }
 
 .intro-container {
@@ -13,7 +12,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, var(--primary), var(--accent), var(--tertiary));
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--neutral));
   padding: 20px;
   animation: fadeIn 1.5s ease;
   text-align: center;
@@ -25,7 +24,7 @@
   padding: 20px;
   background: var(--secondary);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .intro-content h1 {
@@ -62,7 +61,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .intro-container {
     padding: 15px;
