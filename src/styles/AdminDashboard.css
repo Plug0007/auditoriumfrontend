@@ -1,0 +1,222 @@
+.admin-dashboard {
+  padding: 20px;
+  background: #fff;
+  min-height: 100vh;
+  animation: fadeIn 1s ease;
+}
+
+.admin-dashboard h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 500;
+}
+
+.tabs {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tabs button {
+  padding: 12px 20px;
+  margin: 0 5px;
+  background: #e0e7ff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.tabs button.active,
+.tabs button:hover {
+  background: #667eea;
+  color: #fff;
+}
+
+.faculty-management,
+.booking-management {
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+.faculty-management h3,
+.booking-management h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.faculty-management form input,
+.faculty-management form select,
+.faculty-management form button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 0.95em;
+}
+
+.faculty-management form input,
+.faculty-management form select {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.faculty-management form input:focus,
+.faculty-management form select:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.faculty-management form button {
+  background: #667eea;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.faculty-management form button:hover {
+  background: #5a67d8;
+}
+
+.faculty-management table,
+.booking-management table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.faculty-management table th,
+.faculty-management table td,
+.booking-management table th,
+.booking-management table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.filter {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+/* Modern action buttons */
+.btn-edit,
+.btn-save,
+.btn-cancel,
+.btn-approve,
+.btn-reject,
+.btn-delete {
+  padding: 6px 12px;
+  margin: 2px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.3s ease;
+}
+
+.btn-edit {
+  background: #ffc107;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background: #e0a800;
+}
+
+.btn-save {
+  background: #28a745;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background: #218838;
+}
+
+.btn-cancel {
+  background: #6c757d;
+  color: #fff;
+}
+
+.btn-cancel:hover {
+  background: #5a6268;
+}
+
+.btn-approve {
+  background: #007bff;
+  color: #fff;
+}
+
+.btn-approve:hover {
+  background: #0069d9;
+}
+
+.btn-reject {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-reject:hover {
+  background: #c82333;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 10px;
+  }
+  .tabs button {
+    padding: 10px 15px;
+    margin: 0 3px;
+    font-size: 0.9em;
+  }
+  .faculty-management, .booking-management {
+    max-width: 100%;
+  }
+  .faculty-management table, .booking-management table {
+    font-size: 0.85em;
+  }
+  .filter {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs button {
+    padding: 8px 10px;
+    margin: 2px;
+    font-size: 0.8em;
+  }
+  .admin-dashboard h2 {
+    font-size: 1.5rem;
+  }
+  .faculty-management table, .booking-management table {
+    font-size: 0.75em;
+  }
+  .btn-edit,
+  .btn-save,
+  .btn-cancel,
+  .btn-approve,
+  .btn-reject,
+  .btn-delete {
+    padding: 4px 8px;
+    font-size: 0.7em;
+  }
+}

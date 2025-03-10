@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f0f2f5;
+  color: #333;
+}
+
+a {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #5a67d8;
+}
+
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+/* Responsive layout adjustments */
+@media (min-width: 768px) {
+  .container {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: 60%;
+  }
+}
+
+/* Smooth transitions for interactive elements */
+button, a {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover, a:hover {
+  background-color: #0d47a1;
+  color: #fff;
+}
