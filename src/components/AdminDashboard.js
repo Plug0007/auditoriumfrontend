@@ -47,6 +47,14 @@ const AdminDashboard = ({ showToast }) => {
     fetchBookings();
   }, []);
 
+  // Poll for updated bookings every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchBookings();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []); // Adjust dependencies as needed (e.g., [facultyId])
+
   // Persist active tab in localStorage
   useEffect(() => {
     localStorage.setItem('adminActiveTab', activeTab);
