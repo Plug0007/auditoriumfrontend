@@ -35,7 +35,7 @@ const FacultyDashboard = ({ showToast }) => {
   const initialTab = localStorage.getItem('activeTab') || 'newBooking';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // We have eventType AND customEventType for "Other"
+  // State for new booking
   const [bookingData, setBookingData] = useState({
     eventName: '',
     coordinator: '',
@@ -62,7 +62,7 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
-  // Fetch initial bookings if facultyId is present
+  // Fetch bookings initially
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
@@ -97,12 +97,13 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // On submit
+  // Submit new booking
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
       showToast("Calculating your booking...", "info");
 
+      // If "Other" + user typed text
       let finalEventType = bookingData.eventType;
       if (bookingData.eventType === 'Other' && bookingData.customEventType.trim() !== '') {
         finalEventType = bookingData.customEventType.trim();
@@ -119,7 +120,6 @@ const FacultyDashboard = ({ showToast }) => {
         { facultyId, ...finalBookingData }
       );
       if (res.data.success) {
-        // Reset form
         setBookingData({
           eventName: '',
           coordinator: '',
@@ -141,7 +141,7 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Editing logic
+  // Editing
   const startEditBooking = (booking) => {
     setEditBookingId(booking.id);
     setEditBookingData({
@@ -187,11 +187,14 @@ const FacultyDashboard = ({ showToast }) => {
       className="faculty-dashboard"
       style={{
         maxWidth: '100%',
-        overflowX: 'hidden' // prevent horizontal overflow
+        overflowX: 'hidden', // no horizontal scroll
+        margin: '0 auto'
       }}
     >
-      <h2>Faculty Dashboard</h2>
-      <div className="tabs">
+      <h2 style={{ textAlign: 'center' }}>Faculty Dashboard</h2>
+
+      {/* Tab Buttons */}
+      <div className="tabs" style={{ textAlign: 'center' }}>
         <button 
           onClick={() => setActiveTab('newBooking')} 
           className={activeTab === 'newBooking' ? 'active' : ''}
@@ -206,48 +209,63 @@ const FacultyDashboard = ({ showToast }) => {
         </button>
       </div>
 
+      {/* Container to limit form width */}
       {activeTab === 'newBooking' && (
-        <div className="new-booking">
+        <div 
+          className="new-booking"
+          style={{
+            maxWidth: '600px',
+            margin: '0 auto',
+            padding: '1rem'
+          }}
+        >
           <h3>Create a New Booking</h3>
           <form onSubmit={handleBookingSubmit}>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Venue:</label>
-              <span>Auditorium</span>
+              <span style={{ marginLeft: '0.5rem' }}>Auditorium</span>
             </div>
-            <div className="form-group">
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Event Name:</label>
               <input 
                 type="text" 
-                placeholder="Event Name" 
+                placeholder="Event Name"
+                style={{ width: '100%' }}
                 value={bookingData.eventName} 
                 onChange={(e) => setBookingData({ ...bookingData, eventName: e.target.value })}
                 required 
               />
             </div>
-            <div className="form-group">
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Event Coordinator:</label>
               <input 
                 type="text" 
                 placeholder="Coordinator Name" 
+                style={{ width: '100%' }}
                 value={bookingData.coordinator} 
                 onChange={(e) => setBookingData({ ...bookingData, coordinator: e.target.value })}
                 required 
               />
             </div>
-            <div className="form-group">
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Coordinator Contact:</label>
-              {/* If contact is long, we can wrap text or just rely on input constraints */}
               <input
                 type="text"
                 placeholder="Contact Number"
+                style={{ width: '100%' }}
                 value={bookingData.coordinatorContact}
                 onChange={(e) => setBookingData({ ...bookingData, coordinatorContact: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Event Type:</label>
               <select
+                style={{ width: '100%' }}
                 value={bookingData.eventType}
                 onChange={(e) => setBookingData({ ...bookingData, eventType: e.target.value })}
                 required
@@ -262,61 +280,73 @@ const FacultyDashboard = ({ showToast }) => {
               {bookingData.eventType === 'Other' && (
                 <input 
                   type="text" 
-                  placeholder="Specify Event Type" 
+                  placeholder="Specify Event Type"
+                  style={{ width: '100%', marginTop: '0.5rem' }}
                   value={bookingData.customEventType}
                   onChange={(e) => setBookingData({ ...bookingData, customEventType: e.target.value })}
                   required 
                 />
               )}
             </div>
-            <div className="form-group">
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Date:</label>
               <input 
-                type="date" 
+                type="date"
+                style={{ width: '100%' }}
                 value={bookingData.date} 
                 onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
                 required 
               />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Start Time:</label>
               <input 
-                type="time" 
+                type="time"
+                style={{ width: '100%' }}
                 value={bookingData.startTime} 
                 onChange={(e) => setBookingData({ ...bookingData, startTime: e.target.value })}
                 required 
               />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>End Time:</label>
               <input 
-                type="time" 
+                type="time"
+                style={{ width: '100%' }}
                 value={bookingData.endTime} 
                 onChange={(e) => setBookingData({ ...bookingData, endTime: e.target.value })}
                 required 
               />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label>Event Description:</label>
               <textarea 
                 placeholder="Event Description" 
+                style={{ width: '100%' }}
                 value={bookingData.description} 
                 onChange={(e) => setBookingData({ ...bookingData, description: e.target.value })}
                 required 
               />
             </div>
-            <button type="submit" className="submit-btn">Submit Booking</button>
+            <button type="submit" className="submit-btn" style={{ width: '100%' }}>
+              Submit Booking
+            </button>
           </form>
         </div>
       )}
 
       {activeTab === 'myBookings' && (
-        <div className="my-bookings">
+        <div 
+          className="my-bookings"
+          style={{
+            maxWidth: '600px',
+            margin: '0 auto',
+            padding: '1rem'
+          }}
+        >
           <h3>My Bookings</h3>
-          {/* 
-            Make the table scroll vertically by setting a max height 
-            and overflow-y: auto 
-          */}
+          {/* Make the table scroll vertically */}
           <div 
             className="table-responsive"
             style={{
@@ -324,7 +354,7 @@ const FacultyDashboard = ({ showToast }) => {
               overflowY: 'auto'
             }}
           >
-            <table style={{ tableLayout: 'auto' }}>
+            <table style={{ tableLayout: 'auto', width: '100%' }}>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -345,6 +375,7 @@ const FacultyDashboard = ({ showToast }) => {
                           <input 
                             type="text" 
                             name="eventName"
+                            style={{ width: '100%' }}
                             value={editBookingData.eventName} 
                             onChange={handleEditChange}
                           />
@@ -353,29 +384,45 @@ const FacultyDashboard = ({ showToast }) => {
                           <input 
                             type="date" 
                             name="date"
+                            style={{ width: '100%' }}
                             value={editBookingData.date} 
                             onChange={handleEditChange}
                           />
                         </td>
                         <td>
-                          <input 
-                            type="time" 
-                            name="startTime"
-                            value={editBookingData.startTime} 
-                            onChange={handleEditChange}
-                          />
-                          {" - "}
-                          <input 
-                            type="time" 
-                            name="endTime"
-                            value={editBookingData.endTime} 
-                            onChange={handleEditChange}
-                          />
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <input 
+                              type="time" 
+                              name="startTime"
+                              style={{ width: '100%' }}
+                              value={editBookingData.startTime} 
+                              onChange={handleEditChange}
+                            />
+                            <span>-</span>
+                            <input 
+                              type="time" 
+                              name="endTime"
+                              style={{ width: '100%' }}
+                              value={editBookingData.endTime} 
+                              onChange={handleEditChange}
+                            />
+                          </div>
                         </td>
                         <td>{b.status}</td>
                         <td>
-                          <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
-                          <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
+                          <button 
+                            onClick={() => saveEditedBooking(b.id)} 
+                            className="btn-save"
+                            style={{ marginBottom: '0.5rem' }}
+                          >
+                            Save
+                          </button>
+                          <button 
+                            onClick={cancelEdit} 
+                            className="btn-cancel"
+                          >
+                            Cancel
+                          </button>
                         </td>
                       </>
                     ) : (
@@ -386,7 +433,12 @@ const FacultyDashboard = ({ showToast }) => {
                         <td>{b.status}</td>
                         <td>
                           {b.status === 'Pending' && (
-                            <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
+                            <button 
+                              onClick={() => startEditBooking(b)} 
+                              className="btn-edit"
+                            >
+                              Edit
+                            </button>
                           )}
                         </td>
                       </>
