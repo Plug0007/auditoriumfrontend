@@ -1,9 +1,9 @@
+// frontend/src/components/FacultyDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import '../styles/FacultyDashboard.css';
 
-// Example array of event types
 const EVENT_TYPES = [
   "Seminar",
   "Workshop",
@@ -35,13 +35,13 @@ const FacultyDashboard = ({ showToast }) => {
   const initialTab = localStorage.getItem('activeTab') || 'newBooking';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // 1. We have eventType AND customEventType for "Other"
+  // We have eventType AND customEventType for "Other"
   const [bookingData, setBookingData] = useState({
     eventName: '',
     coordinator: '',
     coordinatorContact: '',
     eventType: '',
-    customEventType: '', // NEW: store user-typed text if eventType === 'Other'
+    customEventType: '',
     date: '',
     startTime: '',
     endTime: '',
@@ -50,7 +50,7 @@ const FacultyDashboard = ({ showToast }) => {
 
   const [bookings, setBookings] = useState([]);
 
-  // Editing an existing booking
+  // Editing
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
@@ -62,14 +62,14 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
-  // Fetch bookings
+  // Fetch initial bookings if facultyId is present
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
     }
   }, [facultyId]);
 
-  // Poll every 10 seconds
+  // Poll every 10s
   useEffect(() => {
     if (facultyId) {
       const interval = setInterval(() => {
@@ -79,14 +79,16 @@ const FacultyDashboard = ({ showToast }) => {
     }
   }, [facultyId]);
 
-  // Persist active tab
+  // Persist tab
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/bookings?facultyId=${facultyId}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/faculty/bookings?facultyId=${facultyId}`
+      );
       if (res.data.success) {
         setBookings(res.data.bookings);
       }
@@ -95,24 +97,21 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // 2. On submit, if eventType === 'Other', we replace it with the user-typed customEventType
+  // On submit
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
       showToast("Calculating your booking...", "info");
 
-      // If user selected "Other," use the custom text as the final eventType
       let finalEventType = bookingData.eventType;
       if (bookingData.eventType === 'Other' && bookingData.customEventType.trim() !== '') {
         finalEventType = bookingData.customEventType.trim();
       }
 
-      // Build the final booking object to send
       const finalBookingData = {
         ...bookingData,
         eventType: finalEventType
       };
-      // Remove customEventType from the object so it doesn't go to backend
       delete finalBookingData.customEventType;
 
       const res = await axios.post(
@@ -120,7 +119,7 @@ const FacultyDashboard = ({ showToast }) => {
         { facultyId, ...finalBookingData }
       );
       if (res.data.success) {
-        // Reset the form
+        // Reset form
         setBookingData({
           eventName: '',
           coordinator: '',
@@ -142,7 +141,7 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Editing logic (unchanged)
+  // Editing logic
   const startEditBooking = (booking) => {
     setEditBookingId(booking.id);
     setEditBookingData({
@@ -169,7 +168,10 @@ const FacultyDashboard = ({ showToast }) => {
 
   const saveEditedBooking = async (bookingId) => {
     try {
-      const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`, editBookingData);
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`,
+        editBookingData
+      );
       if (res.data.success) {
         showToast("Your booking has been updated.", "success");
         setEditBookingId(null);
@@ -181,7 +183,13 @@ const FacultyDashboard = ({ showToast }) => {
   };
 
   return (
-    <div className="faculty-dashboard">
+    <div 
+      className="faculty-dashboard"
+      style={{
+        maxWidth: '100%',
+        overflowX: 'hidden' // prevent horizontal overflow
+      }}
+    >
       <h2>Faculty Dashboard</h2>
       <div className="tabs">
         <button 
@@ -216,7 +224,6 @@ const FacultyDashboard = ({ showToast }) => {
                 required 
               />
             </div>
-
             <div className="form-group">
               <label>Event Coordinator:</label>
               <input 
@@ -227,9 +234,9 @@ const FacultyDashboard = ({ showToast }) => {
                 required 
               />
             </div>
-
             <div className="form-group">
               <label>Coordinator Contact:</label>
+              {/* If contact is long, we can wrap text or just rely on input constraints */}
               <input
                 type="text"
                 placeholder="Contact Number"
@@ -238,7 +245,6 @@ const FacultyDashboard = ({ showToast }) => {
                 required
               />
             </div>
-
             <div className="form-group">
               <label>Event Type:</label>
               <select
@@ -253,8 +259,6 @@ const FacultyDashboard = ({ showToast }) => {
                   </option>
                 ))}
               </select>
-
-              {/* If user selects "Other", show a text input for customEventType */}
               {bookingData.eventType === 'Other' && (
                 <input 
                   type="text" 
@@ -265,7 +269,6 @@ const FacultyDashboard = ({ showToast }) => {
                 />
               )}
             </div>
-
             <div className="form-group">
               <label>Date:</label>
               <input 
@@ -310,8 +313,18 @@ const FacultyDashboard = ({ showToast }) => {
       {activeTab === 'myBookings' && (
         <div className="my-bookings">
           <h3>My Bookings</h3>
-          <div className="table-responsive">
-            <table>
+          {/* 
+            Make the table scroll vertically by setting a max height 
+            and overflow-y: auto 
+          */}
+          <div 
+            className="table-responsive"
+            style={{
+              maxHeight: '400px',
+              overflowY: 'auto'
+            }}
+          >
+            <table style={{ tableLayout: 'auto' }}>
               <thead>
                 <tr>
                   <th>ID</th>
