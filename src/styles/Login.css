@@ -63,15 +63,15 @@
 }
 
 .password-wrapper input {
-  padding-right: 40px; /* extra padding on right for the icon */
+  padding-left: 40px; /* leave room on the left for the icon */
 }
 
 .toggle-password {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent;
+  background: none;
   border: none;
   cursor: pointer;
   color: #667eea;
