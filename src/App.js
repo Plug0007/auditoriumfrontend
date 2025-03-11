@@ -4,7 +4,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Intro from './components/Intro';
 import Home from './components/Home';
-import Login from './components/Login';
+// Instead of direct import of Login, we import our new wrapper
+import LoginOrRedirect from './components/LoginOrRedirect';
+
 import AdminDashboard from './components/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard';
 import Credits from './components/Credits';
@@ -46,15 +48,19 @@ function App() {
       )}
 
       <Routes>
-        {/* Root route now simply shows Intro, no automatic redirect */}
+        {/* Public routes */}
         <Route path="/" element={<Intro />} />
-
-        {/* Other public routes (optional) */}
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/credits" element={<Credits />} />
 
-        {/* Protected Routes */}
+        {/* 
+          The /login route uses LoginOrRedirect:
+          - If user is in localStorage, skip login
+          - Else show <Login />
+        */}
+        <Route path="/login" element={<LoginOrRedirect />} />
+
+        {/* Protected routes */}
         <Route
           path="/admin"
           element={
@@ -71,6 +77,9 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Optional catch-all to redirect to / if needed */}
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </>
   );
