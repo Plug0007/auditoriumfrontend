@@ -1,19 +1,6 @@
-/* frontend/src/styles/AdminDashboard.css */
-
-:root {
-  /* New Color Palette */
-  --primary: #3674B5;       /* Rich Blue */
-  --secondary: #578FCA;     /* Lighter Blue */
-  --accent: #A1E3F9;        /* Pale Blue */
-  --neutral: #D1F8EF;       /* Soft Mint/Neutral */
-  
-  /* Optional gradient for backgrounds */
-  --gradient-primary: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--neutral));
-}
-
 .admin-dashboard {
   padding: 20px;
-  background: var(--neutral);
+  background: #fff;
   min-height: 100vh;
   animation: fadeIn 1s ease;
 }
@@ -21,7 +8,7 @@
 .admin-dashboard h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--accent);
+  color: #333;
   font-weight: 500;
 }
 
@@ -33,7 +20,7 @@
 .tabs button {
   padding: 12px 20px;
   margin: 0 5px;
-  background: var(--primary);
+  background: #e0e7ff;
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -43,23 +30,21 @@
 
 .tabs button.active,
 .tabs button:hover {
-  background: var(--accent);
-  color: var(--neutral);
+  background: #667eea;
+  color: #fff;
 }
 
 .faculty-management,
 .booking-management {
   margin: 20px auto;
   max-width: 900px;
-  width: 100%;
-  padding: 0 10px;
 }
 
 .faculty-management h3,
 .booking-management h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: var(--primary);
+  color: #444;
 }
 
 .faculty-management form input,
@@ -72,28 +57,28 @@
 
 .faculty-management form input,
 .faculty-management form select {
-  border: 2px solid var(--primary);
+  border: 2px solid #e0e0e0;
   border-radius: 8px;
   transition: border-color 0.3s ease;
 }
 
 .faculty-management form input:focus,
 .faculty-management form select:focus {
-  border-color: var(--accent);
+  border-color: #667eea;
   outline: none;
 }
 
 .faculty-management form button {
-  background: var(--accent);
+  background: #667eea;
   border: none;
   border-radius: 8px;
-  color: var(--neutral);
+  color: #fff;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .faculty-management form button:hover {
-  background: var(--secondary);
+  background: #5a67d8;
 }
 
 .faculty-management table,
@@ -101,14 +86,13 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-size: 0.95em;
 }
 
 .faculty-management table th,
 .faculty-management table td,
 .booking-management table th,
 .booking-management table td {
-  border: 1px solid var(--primary);
+  border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
 }
@@ -116,10 +100,9 @@
 .filter {
   text-align: right;
   margin-bottom: 15px;
-  font-size: 1em;
 }
 
-/* Action Buttons */
+/* Modern action buttons */
 .btn-edit,
 .btn-save,
 .btn-cancel,
@@ -136,51 +119,57 @@
 }
 
 .btn-edit {
-  background: var(--secondary);
-  color: var(--primary);
+  background: #ffc107;
+  color: #fff;
 }
+
 .btn-edit:hover {
-  background: var(--accent);
+  background: #e0a800;
 }
 
 .btn-save {
-  background: var(--accent);
-  color: var(--neutral);
+  background: #28a745;
+  color: #fff;
 }
+
 .btn-save:hover {
-  background: var(--secondary);
+  background: #218838;
 }
 
 .btn-cancel {
-  background: var(--primary);
-  color: var(--neutral);
+  background: #6c757d;
+  color: #fff;
 }
+
 .btn-cancel:hover {
-  background: var(--accent);
+  background: #5a6268;
 }
 
 .btn-approve {
-  background: var(--accent);
-  color: var(--neutral);
+  background: #007bff;
+  color: #fff;
 }
+
 .btn-approve:hover {
-  background: var(--secondary);
+  background: #0069d9;
 }
 
 .btn-reject {
-  background: var(--secondary);
-  color: var(--neutral);
+  background: #dc3545;
+  color: #fff;
 }
+
 .btn-reject:hover {
-  background: var(--primary);
+  background: #c82333;
 }
 
 .btn-delete {
-  background: var(--secondary);
-  color: var(--neutral);
+  background: #dc3545;
+  color: #fff;
 }
+
 .btn-delete:hover {
-  background: var(--primary);
+  background: #c82333;
 }
 
 @keyframes fadeIn {
