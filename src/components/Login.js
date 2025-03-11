@@ -5,12 +5,12 @@ import axios from 'axios';
 import '../styles/Login.css';
 
 const Login = () => {
-  const [username, setUsername]       = useState('');
-  const [password, setPassword]       = useState('');
-  const [rememberMe, setRememberMe]   = useState(false);
+  const [username, setUsername]         = useState('');
+  const [password, setPassword]         = useState('');
+  const [rememberMe, setRememberMe]     = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading]         = useState(false);
-  const navigate                      = useNavigate();
+  const [loading, setLoading]           = useState(false);
+  const navigate                        = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
