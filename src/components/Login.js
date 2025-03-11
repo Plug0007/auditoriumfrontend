@@ -53,12 +53,6 @@ const Login = () => {
         <div className="form-group">
           <label>Password:</label>
           <div className="password-wrapper">
-            <input 
-              type={showPassword ? "text" : "password"}
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              required 
-            />
             <button 
               type="button" 
               className="toggle-password" 
@@ -66,17 +60,23 @@ const Login = () => {
             >
               {showPassword ? (
                 // Eye slash icon for "hide password"
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 012.376-4.197M9.88 9.88a3 3 0 104.24 4.24M15 12a3 3 0 01-3 3m0-6a3 3 0 013 3m4.24 4.24a10.05 10.05 0 01-2.376 4.197M3 3l18 18" />
                 </svg>
               ) : (
                 // Eye icon for "show password"
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
                 </svg>
               )}
             </button>
+            <input 
+              type={showPassword ? "text" : "password"}
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              required 
+            />
           </div>
         </div>
         <div className="form-group remember-me">
