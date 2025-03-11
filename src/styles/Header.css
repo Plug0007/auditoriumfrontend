@@ -1,22 +1,17 @@
-:root {
-  /* New Luxury Palette (defined in App.css) */
-  /* --primary, --secondary, --accent, --neutral, --gradient-primary */
-}
-
 .main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: var(--gradient-primary);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  flex-wrap: wrap;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .logo a {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--neutral);
+  color: #fff;
   text-decoration: none;
   transition: transform 0.3s ease;
 }
@@ -25,35 +20,37 @@
   transform: scale(1.05);
 }
 
-.nav-menu {
+.nav-links {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 }
 
-.nav-item {
+.nav-links a {
   margin-left: 20px;
   font-size: 1rem;
-  color: var(--neutral);
+  color: #fff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.nav-item:hover {
-  color: var(--accent);
+.nav-links a:hover {
+  color: #e0e0e0;
 }
 
-.logout-btn {
+.logout-button {
+  margin-left: 20px;
   background: transparent;
-  border: 1px solid var(--neutral);
+  border: 1px solid #fff;
   border-radius: 4px;
   padding: 5px 10px;
+  color: #fff;
   cursor: pointer;
+  font-size: 1rem;
   transition: background 0.3s ease;
 }
 
-.logout-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive adjustments */
@@ -62,12 +59,23 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  .nav-menu {
+  .nav-links {
     margin-top: 10px;
     flex-wrap: wrap;
   }
-  .nav-item, .logout-btn {
-    margin: 5px 10px 0 0;
+  .nav-links a,
+  .logout-button {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo a {
+    font-size: 1.4rem;
+  }
+  .nav-links a,
+  .logout-button {
     font-size: 0.9rem;
   }
 }
