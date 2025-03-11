@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AdminDashboard.css';
 
-// 1. New department list
+// 1. Define your large department list
 const DEPARTMENTS = [
   "Office",
   "Political Science - Junior College",
@@ -19,7 +19,6 @@ const DEPARTMENTS = [
   "Mathematics - Junior College",
   "Physical Education - Junior College",
   "Physics - Junior College",
-  // Remove duplicate if needed
   "Psychology - Junior College",
   "Sociology - Junior College",
   "Urdu - Junior College",
@@ -115,11 +114,12 @@ const AdminDashboard = ({ showToast }) => {
   // Booking management states
   const [bookings, setBookings] = useState([]);
   const [filterStatus, setFilterStatus] = useState('All');
-  // For inline editing booking details in admin panel
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
     coordinator: '',
+    // If you want admin to edit coordinatorContact as well, add it here:
+    // coordinatorContact: '',
     eventType: '',
     date: '',
     startTime: '',
@@ -128,6 +128,7 @@ const AdminDashboard = ({ showToast }) => {
     status: ''
   });
 
+  // Initial fetch
   useEffect(() => {
     fetchFaculties();
     fetchBookings();
@@ -146,7 +147,7 @@ const AdminDashboard = ({ showToast }) => {
     localStorage.setItem('adminActiveTab', activeTab);
   }, [activeTab]);
 
-  // Faculty management functions
+  // ----- FACULTY FUNCTIONS -----
   const fetchFaculties = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty`);
@@ -219,7 +220,7 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // Booking management functions
+  // ----- BOOKING FUNCTIONS -----
   const fetchBookings = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/bookings`);
@@ -249,6 +250,7 @@ const AdminDashboard = ({ showToast }) => {
     setEditBookingData({
       eventName: booking.eventName,
       coordinator: booking.coordinator,
+      // coordinatorContact: booking.coordinatorContact, // if you want to edit
       eventType: booking.eventType,
       date: booking.date,
       startTime: booking.startTime,
@@ -305,7 +307,7 @@ const AdminDashboard = ({ showToast }) => {
         </button>
       </div>
 
-      {/* --- FACULTY TAB --- */}
+      {/* ---------- FACULTY TAB ---------- */}
       {activeTab === 'faculty' && (
         <div className="faculty-management">
           <h3>Create New Faculty</h3>
@@ -317,15 +319,21 @@ const AdminDashboard = ({ showToast }) => {
               onChange={(e) => setNewFaculty({ ...newFaculty, name: e.target.value })}
               required 
             />
-            {/* Department dropdown using the new list */}
+            {/* 
+              Department dropdown using DEPARTMENTS array 
+              with a wider minWidth
+            */}
             <select
+              style={{ minWidth: '300px' }}
               value={newFaculty.department}
               onChange={(e) => setNewFaculty({ ...newFaculty, department: e.target.value })}
               required
             >
               <option value="">Select Department</option>
               {DEPARTMENTS.map((dept) => (
-                <option key={dept} value={dept}>{dept}</option>
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
               ))}
             </select>
             <select
@@ -384,13 +392,16 @@ const AdminDashboard = ({ showToast }) => {
                         </td>
                         <td>
                           <select
+                            style={{ minWidth: '300px' }}
                             name="department"
                             value={editingFacultyData.department}
                             onChange={handleFacultyEditChange}
                           >
                             <option value="">Select Department</option>
                             {DEPARTMENTS.map((dept) => (
-                              <option key={dept} value={dept}>{dept}</option>
+                              <option key={dept} value={dept}>
+                                {dept}
+                              </option>
                             ))}
                           </select>
                         </td>
@@ -447,7 +458,7 @@ const AdminDashboard = ({ showToast }) => {
         </div>
       )}
 
-      {/* --- BOOKINGS TAB --- */}
+      {/* ---------- BOOKING TAB ---------- */}
       {activeTab === 'bookings' && (
         <div className="booking-management">
           <h3>Booking Requests</h3>
@@ -465,10 +476,13 @@ const AdminDashboard = ({ showToast }) => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  {/* Replaced "Faculty ID" with "Faculty Name" */}
-                  <th>Faculty Name</th>
-                  <th>Event Name</th>
+                  {/* 
+                    Add "Coordinator" and "Coordinator Contact" columns 
+                    to show that info in the booking table
+                  */}
                   <th>Coordinator</th>
+                  <th>Contact</th>
+                  <th>Event Name</th>
                   <th>Date</th>
                   <th>Time Slot</th>
                   <th>Status</th>
@@ -476,85 +490,76 @@ const AdminDashboard = ({ showToast }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredBookings.map((b) => {
-                  // find the matching faculty for each booking
-                  const faculty = faculties.find(f => f.id === b.facultyId);
-                  const facultyName = faculty ? faculty.name : "Unknown";
-
-                  return (
-                    <tr key={b.id}>
-                      <td>{b.id}</td>
-                      <td>{facultyName}</td>
-                      {editBookingId === b.id ? (
-                        <>
-                          <td>
-                            <input 
-                              type="text" 
-                              name="eventName"
-                              value={editBookingData.eventName} 
-                              onChange={handleBookingEditChange}
-                            />
-                          </td>
-                          <td>
-                            <input 
-                              type="text" 
-                              name="coordinator"
-                              value={editBookingData.coordinator} 
-                              onChange={handleBookingEditChange}
-                            />
-                          </td>
-                          <td>
-                            <input 
-                              type="date" 
-                              name="date"
-                              value={editBookingData.date} 
-                              onChange={handleBookingEditChange}
-                            />
-                          </td>
-                          <td>
-                            <input 
-                              type="time" 
-                              name="startTime"
-                              value={editBookingData.startTime} 
-                              onChange={handleBookingEditChange}
-                            />
-                            {" - "}
-                            <input 
-                              type="time" 
-                              name="endTime"
-                              value={editBookingData.endTime} 
-                              onChange={handleBookingEditChange}
-                            />
-                          </td>
-                          <td>
-                            <select name="status" value={editBookingData.status} onChange={handleBookingEditChange}>
-                              <option value="Pending">Pending</option>
-                              <option value="Approved">Approved</option>
-                              <option value="Rejected">Rejected</option>
-                            </select>
-                          </td>
-                          <td>
-                            <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
-                            <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
-                          </td>
-                        </>
-                      ) : (
-                        <>
-                          <td>{b.eventName}</td>
-                          <td>{b.coordinator}</td>
-                          <td>{b.date}</td>
-                          <td>{b.startTime} - {b.endTime}</td>
-                          <td>{b.status}</td>
-                          <td>
-                            <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
-                            <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
-                            <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
-                          </td>
-                        </>
-                      )}
-                    </tr>
-                  );
-                })}
+                {filteredBookings.map((b) => (
+                  <tr key={b.id}>
+                    <td>{b.id}</td>
+                    <td>{b.coordinator}</td>
+                    {/* This depends on your backend returning 'coordinatorContact' */}
+                    <td>{b.coordinatorContact || "N/A"}</td>
+                    {editBookingId === b.id ? (
+                      <>
+                        <td>
+                          <input 
+                            type="text" 
+                            name="eventName"
+                            value={editBookingData.eventName} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="date" 
+                            name="date"
+                            value={editBookingData.date} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="time" 
+                            name="startTime"
+                            value={editBookingData.startTime} 
+                            onChange={handleBookingEditChange}
+                          />
+                          {" - "}
+                          <input 
+                            type="time" 
+                            name="endTime"
+                            value={editBookingData.endTime} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <select 
+                            name="status" 
+                            value={editBookingData.status} 
+                            onChange={handleBookingEditChange}
+                          >
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
+                          <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td>{b.eventName}</td>
+                        <td>{b.date}</td>
+                        <td>{b.startTime} - {b.endTime}</td>
+                        <td>{b.status}</td>
+                        <td>
+                          <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
