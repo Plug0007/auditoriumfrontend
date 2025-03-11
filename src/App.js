@@ -47,7 +47,7 @@ function App() {
 
       <Routes>
         {/* Root route now simply shows Intro, no automatic redirect */}
-        <Route path="/" element={<Intro />} />
+        <Route path="/intro" element={<Intro />} />
 
         {/* Other public routes (optional) */}
         <Route path="/home" element={<Home />} />
