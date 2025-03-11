@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Intro from './components/Intro'; // or PwaIntro if you have one
+import Intro from './components/PwaIntro'; // or PwaIntro if you have one
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard';
