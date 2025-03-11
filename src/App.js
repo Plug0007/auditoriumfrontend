@@ -25,6 +25,21 @@ function PrivateRoute({ children }) {
   return children;
 }
 
+/**
+ * StartupRedirect:
+ * - If a user is found in localStorage, redirect to their dashboard.
+ * - Otherwise, redirect to /login.
+ */
+function StartupRedirect() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+    // If user is admin, go to /admin; if faculty, go to /faculty
+    return <Navigate to={user.role === 'admin' ? '/admin' : '/faculty'} replace />;
+  }
+  // No user found, go to /login (or show a public page if you prefer)
+  return <Navigate to="/login" replace />;
+}
+
 function App() {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
@@ -46,8 +61,11 @@ function App() {
       )}
 
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Intro />} />
+        {/* 1. When user visits '/', check if they're already logged in */}
+        <Route path="/" element={<StartupRedirect />} />
+
+        {/* Optional public routes */}
+        <Route path="/intro" element={<Intro />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/credits" element={<Credits />} />
