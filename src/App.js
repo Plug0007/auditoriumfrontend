@@ -26,7 +26,7 @@ function App() {
         <AlertModal message={alertMessage} type={alertType} onClose={() => setAlertMessage('')} />
       )}
       <Routes>
-        <Route exact path="/" element={<Intro />} />
+        <Route path="/" element={<Intro />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminDashboard showToast={showAlert} />} />
