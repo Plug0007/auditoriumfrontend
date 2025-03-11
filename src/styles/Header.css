@@ -6,6 +6,7 @@
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 
 .logo a {
@@ -53,16 +54,92 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Mobile Menu Icon (hamburger) */
+.mobile-menu-icon {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-end;
+}
+
+.mobile-menu-icon .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 20px;
+  font-size: 1rem;
+}
+
+.nav-menu .logout-btn {
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Mobile Navigation */
+.nav-menu.active {
+  display: block;
+  position: absolute;
+  top: 60px; /* Adjust this depending on header height */
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.nav-menu a {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.nav-menu a:hover {
+  color: #e0e0e0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .nav-links {
-    margin-top: 10px;
-    flex-wrap: wrap;
+    display: none; /* Hide default navigation for mobile */
   }
+
+  .mobile-menu-icon {
+    display: flex;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .logo a {
+    font-size: 1.6rem;
+  }
+
   .nav-links a,
   .logout-button {
-    margin-left: 0;
-    margin-right: 10px;
+    font-size: 1rem;
   }
 }
 
@@ -70,6 +147,7 @@
   .logo a {
     font-size: 1.4rem;
   }
+
   .nav-links a,
   .logout-button {
     font-size: 0.9rem;
