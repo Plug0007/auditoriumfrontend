@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <header className="main-header">
       <div className="logo">
-        <Link to={homePath}>Auditorimun Booking</Link>
+        <Link to={homePath}>Auditorium Booking</Link>
       </div>
       <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
         <span className="bar"></span>
