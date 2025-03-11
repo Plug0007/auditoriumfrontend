@@ -25,27 +25,6 @@ function PrivateRoute({ children }) {
   return children;
 }
 
-/**
- * StartupRedirect:
- * - If a user is found in localStorage, redirect to their dashboard.
- * - If no user, render the Intro page at "/".
- */
-function StartupRedirect() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    if (user.role === 'admin') {
-      return <Navigate to="/admin" replace />;
-    } else if (user.role === 'faculty') {
-      return <Navigate to="/faculty" replace />;
-    } else {
-      // Fallback if user.role isn't recognized
-      return <Navigate to="/login" replace />;
-    }
-  }
-  // No user found -> show Intro at "/"
-  return <Intro />;
-}
-
 function App() {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
@@ -67,8 +46,8 @@ function App() {
       )}
 
       <Routes>
-        {/* Root route uses StartupRedirect */}
-        <Route path="/" element={<StartupRedirect />} />
+        {/* Root route now simply shows Intro, no automatic redirect */}
+        <Route path="/" element={<Intro />} />
 
         {/* Other public routes (optional) */}
         <Route path="/home" element={<Home />} />
