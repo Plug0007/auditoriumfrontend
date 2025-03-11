@@ -16,7 +16,7 @@
   font-weight: 500;
 }
 
-.login-container form div {
+.form-group {
   margin-bottom: 20px;
 }
 
@@ -41,7 +41,7 @@
   outline: none;
 }
 
-.login-container button {
+.login-container button[type="submit"] {
   width: 100%;
   padding: 12px;
   background: #667eea;
@@ -53,23 +53,24 @@
   transition: background 0.3s ease;
 }
 
-.login-container button:hover {
+.login-container button[type="submit"]:hover {
   background: #5a67d8;
 }
 
-/* Styles for password wrapper and toggle icon */
 .password-wrapper {
   position: relative;
 }
 
+/* Extra right padding for the input to avoid overlapping the icon */
 .password-wrapper input {
-  padding-left: 40px; /* leave room on the left for the icon */
+  padding-right: 40px;
 }
 
+/* The eye icon button on the right side */
 .toggle-password {
   position: absolute;
-  left: 10px;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -80,6 +81,12 @@
 
 /* Slide in animation */
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0; 
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1; 
+    transform: translateY(0);
+  }
 }
