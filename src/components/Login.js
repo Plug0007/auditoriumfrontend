@@ -8,7 +8,7 @@ const Login = () => {
   const [username, setUsername]         = useState('');
   const [password, setPassword]         = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  // Always "true" behind the scenes, so we don't show the checkbox
+  // Always "true" behind the scenes
   const [rememberMe] = useState(true);
   const [loading, setLoading]           = useState(false);
   const navigate                        = useNavigate();
@@ -23,7 +23,7 @@ const Login = () => {
       });
       if (res.data.success) {
         const user = res.data.user;
-        // Because rememberMe is always true, we always store the user in localStorage
+        // Store the user in localStorage so they remain logged in after closing PWA
         localStorage.setItem('user', JSON.stringify(user));
 
         // Redirect based on role
@@ -123,8 +123,7 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Removed the checkbox UI; 'rememberMe' is always true behind the scenes */}
-
+        {/* No checkbox - always remember in localStorage */}
         <button type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
