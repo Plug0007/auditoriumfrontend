@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-/>
-  <!-- Link to your manifest -->
-<link rel="manifest" href="/manifest.json">
-<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-<!-- Set the theme color (matches manifest) -->
-<meta name="theme-color" content="#0d47a1">
-<!-- Ensure proper scaling on mobile devices -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Auditorimun Booking</title>
+  <!-- Single meta viewport to disable zoom on mobile devices -->
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+
+  <!-- Link to your manifest -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Set the theme color (matches manifest) -->
+  <meta name="theme-color" content="#0d47a1" />
+
+  <title>Auditorium Booking</title>
 </head>
 <body>
   <div id="root"></div>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
@@ -31,6 +33,5 @@
       });
     }
   </script>
-  
 </body>
 </html>
