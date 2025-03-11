@@ -4,12 +4,38 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import '../styles/FacultyDashboard.css';
 
+// 1. Define the event types array
+const EVENT_TYPES = [
+  "Seminar",
+  "Workshop",
+  "Conference",
+  "Guest Lecture",
+  "Orientation",
+  "Training",
+  "Webinar",
+  "Meeting",
+  "Cultural Event",
+  "Sports Event",
+  "Competition",
+  "Panel Discussion",
+  "Alumni Meet",
+  "Symposium",
+  "Exhibition",
+  "Festival",
+  "Career Fair",
+  "Award Ceremony",
+  "Fundraiser",
+  "Other"
+];
+
 const FacultyDashboard = ({ showToast }) => {
   const location = useLocation();
   const user = location.state?.user || JSON.parse(localStorage.getItem("user"));
   const facultyId = user?.id;
   const initialTab = localStorage.getItem('activeTab') || 'newBooking';
   const [activeTab, setActiveTab] = useState(initialTab);
+
+  // New booking state
   const [bookingData, setBookingData] = useState({
     eventName: '',
     coordinator: '',
@@ -19,7 +45,11 @@ const FacultyDashboard = ({ showToast }) => {
     endTime: '',
     description: ''
   });
+
+  // My Bookings
   const [bookings, setBookings] = useState([]);
+
+  // Editing an existing booking
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
@@ -31,12 +61,14 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
+  // Fetch initial bookings if facultyId is present
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
     }
   }, [facultyId]);
 
+  // Poll for updated bookings every 10 seconds
   useEffect(() => {
     if (facultyId) {
       const interval = setInterval(() => {
@@ -46,10 +78,12 @@ const FacultyDashboard = ({ showToast }) => {
     }
   }, [facultyId]);
 
+  // Persist active tab in localStorage
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
+  // Fetch all bookings for this faculty
   const fetchBookings = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/bookings?facultyId=${facultyId}`);
@@ -61,12 +95,17 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
+  // Submit a new booking
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
       showToast("Calculating your booking...", "info");
-      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking`, { facultyId, ...bookingData });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking`,
+        { facultyId, ...bookingData }
+      );
       if (res.data.success) {
+        // Reset the booking form
         setBookingData({
           eventName: '',
           coordinator: '',
@@ -86,6 +125,7 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
+  // Begin editing an existing booking
   const startEditBooking = (booking) => {
     setEditBookingId(booking.id);
     setEditBookingData({
@@ -99,10 +139,12 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
+  // Cancel editing
   const cancelEdit = () => {
     setEditBookingId(null);
   };
 
+  // Handle changes in the edit form
   const handleEditChange = (e) => {
     setEditBookingData({
       ...editBookingData,
@@ -110,6 +152,7 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
+  // Save the edited booking
   const saveEditedBooking = async (bookingId) => {
     try {
       const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`, editBookingData);
@@ -140,6 +183,8 @@ const FacultyDashboard = ({ showToast }) => {
           My Bookings
         </button>
       </div>
+
+      {/* --- NEW BOOKING TAB --- */}
       {activeTab === 'newBooking' && (
         <div className="new-booking">
           <h3>Create a New Booking</h3>
@@ -168,6 +213,8 @@ const FacultyDashboard = ({ showToast }) => {
                 required 
               />
             </div>
+
+            {/* 2. Use a select for event types + "Other" text field */}
             <div className="form-group">
               <label>Event Type:</label>
               <select
@@ -176,18 +223,24 @@ const FacultyDashboard = ({ showToast }) => {
                 required
               >
                 <option value="">Select Event Type</option>
-                <option value="Seminar">Seminar</option>
-                <option value="Other">Other</option>
+                {EVENT_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
               </select>
+              {/* If user selects "Other", show a text input to specify */}
               {bookingData.eventType === 'Other' && (
                 <input 
                   type="text" 
                   placeholder="Specify Event Type" 
+                  value={bookingData.eventType}
                   onChange={(e) => setBookingData({ ...bookingData, eventType: e.target.value })}
                   required 
                 />
               )}
             </div>
+
             <div className="form-group">
               <label>Date:</label>
               <input 
@@ -228,10 +281,11 @@ const FacultyDashboard = ({ showToast }) => {
           </form>
         </div>
       )}
+
+      {/* --- MY BOOKINGS TAB --- */}
       {activeTab === 'myBookings' && (
         <div className="my-bookings">
           <h3>My Bookings</h3>
-          {/* Wrap table in a responsive container */}
           <div className="table-responsive">
             <table>
               <thead>
@@ -245,7 +299,7 @@ const FacultyDashboard = ({ showToast }) => {
                 </tr>
               </thead>
               <tbody>
-                {bookings.map(b => (
+                {bookings.map((b) => (
                   <tr key={b.id}>
                     <td>{b.id}</td>
                     {editBookingId === b.id ? (
@@ -283,6 +337,7 @@ const FacultyDashboard = ({ showToast }) => {
                         </td>
                         <td>{b.status}</td>
                         <td>
+                          {/* Save/Cancel buttons */}
                           <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
                           <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
                         </td>
