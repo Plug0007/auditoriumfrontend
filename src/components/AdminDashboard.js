@@ -47,13 +47,13 @@ const AdminDashboard = ({ showToast }) => {
     fetchBookings();
   }, []);
 
-  // Poll for updated bookings every 30 seconds
+  // Poll for updated bookings every 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBookings();
     }, 10000);
     return () => clearInterval(interval);
-  }, []); // Adjust dependencies as needed (e.g., [facultyId])
+  }, []);
 
   // Persist active tab in localStorage
   useEffect(() => {
@@ -268,97 +268,100 @@ const AdminDashboard = ({ showToast }) => {
             <button type="submit">Add Faculty</button>
           </form>
           <h3>Faculty List</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {faculties.map((faculty) => (
-                <tr key={faculty.id}>
-                  <td>{faculty.id}</td>
-                  {editingFacultyId === faculty.id ? (
-                    <>
-                      <td>
-                        <input 
-                          type="text"
-                          name="name"
-                          value={editingFacultyData.name}
-                          onChange={handleFacultyEditChange}
-                        />
-                      </td>
-                      <td>
-                        <select
-                          name="department"
-                          value={editingFacultyData.department}
-                          onChange={handleFacultyEditChange}
-                        >
-                          <option value="">Select Department</option>
-                          <option value="BSc">BSc</option>
-                          <option value="BMS">BMS</option>
-                          <option value="BSc CS">BSc CS</option>
-                          <option value="BSc IT">BSc IT</option>
-                          <option value="Junior College 11-12 Science">Junior College 11-12 Science</option>
-                          <option value="Commerce">Commerce</option>
-                          <option value="Arts">Arts</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select
-                          name="position"
-                          value={editingFacultyData.position}
-                          onChange={handleFacultyEditChange}
-                        >
-                          <option value="">Select Position</option>
-                          <option value="Teacher">Teacher</option>
-                          <option value="HOD">HOD</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input 
-                          type="text"
-                          name="username"
-                          value={editingFacultyData.username}
-                          onChange={handleFacultyEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="text"
-                          name="password"
-                          value={editingFacultyData.password}
-                          onChange={handleFacultyEditChange}
-                        />
-                      </td>
-                      <td>
-                        <button onClick={() => saveEditedFaculty(faculty.id)} className="btn-save">Save</button>
-                        <button onClick={cancelEditFaculty} className="btn-cancel">Cancel</button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{faculty.name}</td>
-                      <td>{faculty.department}</td>
-                      <td>{faculty.position}</td>
-                      <td>{faculty.username}</td>
-                      <td>{"********"}</td>
-                      <td>
-                        <button onClick={() => startEditFaculty(faculty)} className="btn-edit">Edit</button>
-                        <button onClick={() => handleDeleteFaculty(faculty.id)} className="btn-delete">Delete</button>
-                      </td>
-                    </>
-                  )}
+          {/* Wrap table in a responsive container */}
+          <div className="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Position</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {faculties.map((faculty) => (
+                  <tr key={faculty.id}>
+                    <td>{faculty.id}</td>
+                    {editingFacultyId === faculty.id ? (
+                      <>
+                        <td>
+                          <input 
+                            type="text"
+                            name="name"
+                            value={editingFacultyData.name}
+                            onChange={handleFacultyEditChange}
+                          />
+                        </td>
+                        <td>
+                          <select
+                            name="department"
+                            value={editingFacultyData.department}
+                            onChange={handleFacultyEditChange}
+                          >
+                            <option value="">Select Department</option>
+                            <option value="BSc">BSc</option>
+                            <option value="BMS">BMS</option>
+                            <option value="BSc CS">BSc CS</option>
+                            <option value="BSc IT">BSc IT</option>
+                            <option value="Junior College 11-12 Science">Junior College 11-12 Science</option>
+                            <option value="Commerce">Commerce</option>
+                            <option value="Arts">Arts</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select
+                            name="position"
+                            value={editingFacultyData.position}
+                            onChange={handleFacultyEditChange}
+                          >
+                            <option value="">Select Position</option>
+                            <option value="Teacher">Teacher</option>
+                            <option value="HOD">HOD</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input 
+                            type="text"
+                            name="username"
+                            value={editingFacultyData.username}
+                            onChange={handleFacultyEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="text"
+                            name="password"
+                            value={editingFacultyData.password}
+                            onChange={handleFacultyEditChange}
+                          />
+                        </td>
+                        <td>
+                          <button onClick={() => saveEditedFaculty(faculty.id)} className="btn-save">Save</button>
+                          <button onClick={cancelEditFaculty} className="btn-cancel">Cancel</button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td>{faculty.name}</td>
+                        <td>{faculty.department}</td>
+                        <td>{faculty.position}</td>
+                        <td>{faculty.username}</td>
+                        <td>{"********"}</td>
+                        <td>
+                          <button onClick={() => startEditFaculty(faculty)} className="btn-edit">Edit</button>
+                          <button onClick={() => handleDeleteFaculty(faculty.id)} className="btn-delete">Delete</button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
       {activeTab === 'bookings' && (
@@ -373,95 +376,98 @@ const AdminDashboard = ({ showToast }) => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Faculty ID</th>
-                <th>Event Name</th>
-                <th>Coordinator</th>
-                <th>Date</th>
-                <th>Time Slot</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredBookings.map(b => (
-                <tr key={b.id}>
-                  <td>{b.id}</td>
-                  <td>{b.facultyId}</td>
-                  {editBookingId === b.id ? (
-                    <>
-                      <td>
-                        <input 
-                          type="text" 
-                          name="eventName"
-                          value={editBookingData.eventName} 
-                          onChange={handleBookingEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="text" 
-                          name="coordinator"
-                          value={editBookingData.coordinator} 
-                          onChange={handleBookingEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="date" 
-                          name="date"
-                          value={editBookingData.date} 
-                          onChange={handleBookingEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="time" 
-                          name="startTime"
-                          value={editBookingData.startTime} 
-                          onChange={handleBookingEditChange}
-                        />
-                        {" - "}
-                        <input 
-                          type="time" 
-                          name="endTime"
-                          value={editBookingData.endTime} 
-                          onChange={handleBookingEditChange}
-                        />
-                      </td>
-                      <td>
-                        <select name="status" value={editBookingData.status} onChange={handleBookingEditChange}>
-                          <option value="Pending">Pending</option>
-                          <option value="Approved">Approved</option>
-                          <option value="Rejected">Rejected</option>
-                        </select>
-                      </td>
-                      <td>
-                        <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
-                        <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{b.eventName}</td>
-                      <td>{b.coordinator}</td>
-                      <td>{b.date}</td>
-                      <td>{b.startTime} - {b.endTime}</td>
-                      <td>{b.status}</td>
-                      <td>
-                        <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
-                        <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
-                        <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
-                      </td>
-                    </>
-                  )}
+          {/* Wrap table in a responsive container */}
+          <div className="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Faculty ID</th>
+                  <th>Event Name</th>
+                  <th>Coordinator</th>
+                  <th>Date</th>
+                  <th>Time Slot</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredBookings.map(b => (
+                  <tr key={b.id}>
+                    <td>{b.id}</td>
+                    <td>{b.facultyId}</td>
+                    {editBookingId === b.id ? (
+                      <>
+                        <td>
+                          <input 
+                            type="text" 
+                            name="eventName"
+                            value={editBookingData.eventName} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="text" 
+                            name="coordinator"
+                            value={editBookingData.coordinator} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="date" 
+                            name="date"
+                            value={editBookingData.date} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="time" 
+                            name="startTime"
+                            value={editBookingData.startTime} 
+                            onChange={handleBookingEditChange}
+                          />
+                          {" - "}
+                          <input 
+                            type="time" 
+                            name="endTime"
+                            value={editBookingData.endTime} 
+                            onChange={handleBookingEditChange}
+                          />
+                        </td>
+                        <td>
+                          <select name="status" value={editBookingData.status} onChange={handleBookingEditChange}>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
+                          <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td>{b.eventName}</td>
+                        <td>{b.coordinator}</td>
+                        <td>{b.date}</td>
+                        <td>{b.startTime} - {b.endTime}</td>
+                        <td>{b.status}</td>
+                        <td>
+                          <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
