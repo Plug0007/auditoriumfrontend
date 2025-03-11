@@ -1,48 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-:root {
-  --primary: #3674B5;
-  --secondary: #578FCA;
-  --accent: #A1E3F9;
-  --neutral: #D1F8EF;
-}
-
+/* frontend/src/styles/Intro.css */
 .intro-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, var(--primary), var(--accent), var(--neutral));
+  background: linear-gradient(135deg, #667eea, #764ba2);
   padding: 20px;
   animation: fadeIn 1.5s ease;
-  text-align: center;
-  color: var(--neutral);
+  color: #fff;
 }
 
 .intro-content {
+  text-align: center;
   max-width: 600px;
   padding: 20px;
-  background: var(--secondary);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .intro-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  color: var(--primary);
+  font-weight: 600;
 }
 
 .intro-content p {
   font-size: 1.25rem;
   margin-bottom: 40px;
   line-height: 1.5;
-  color: var(--primary);
 }
 
 .continue-btn {
-  background: var(--accent);
-  color: var(--neutral);
+  background: #fff;
+  color: #333;
   padding: 15px 30px;
   font-size: 1.1rem;
   border: none;
@@ -53,7 +41,7 @@
 
 .continue-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes fadeIn {
@@ -61,13 +49,8 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .intro-container {
-    padding: 15px;
-  }
-  .intro-content {
-    padding: 15px;
-  }
   .intro-content h1 {
     font-size: 2.5rem;
   }
@@ -81,12 +64,6 @@
 }
 
 @media (max-width: 480px) {
-  .intro-container {
-    padding: 10px;
-  }
-  .intro-content {
-    padding: 10px;
-  }
   .intro-content h1 {
     font-size: 2rem;
   }
