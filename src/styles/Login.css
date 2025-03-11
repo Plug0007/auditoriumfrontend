@@ -63,13 +63,12 @@
 }
 
 .password-wrapper input {
-  /* Extra left padding to accommodate the eye icon */
-  padding-left: 40px;
+  padding-right: 40px; /* extra padding on right for the icon */
 }
 
 .toggle-password {
   position: absolute;
-  left: 10px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
