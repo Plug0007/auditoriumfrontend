@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AdminDashboard.css';
 
-// 1. Define your large department list
+// Large department list
 const DEPARTMENTS = [
   "Office",
   "Political Science - Junior College",
@@ -89,11 +89,10 @@ const DEPARTMENTS = [
 ];
 
 const AdminDashboard = ({ showToast }) => {
-  // Retrieve the active tab from localStorage or default to 'faculty'
   const initialTab = localStorage.getItem('adminActiveTab') || 'faculty';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // Faculty management states
+  // Faculty management
   const [faculties, setFaculties] = useState([]);
   const [newFaculty, setNewFaculty] = useState({
     name: '',
@@ -111,15 +110,13 @@ const AdminDashboard = ({ showToast }) => {
     password: ''
   });
 
-  // Booking management states
+  // Booking management
   const [bookings, setBookings] = useState([]);
   const [filterStatus, setFilterStatus] = useState('All');
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
     coordinator: '',
-    // If you want admin to edit coordinatorContact as well, add it here:
-    // coordinatorContact: '',
     eventType: '',
     date: '',
     startTime: '',
@@ -128,13 +125,12 @@ const AdminDashboard = ({ showToast }) => {
     status: ''
   });
 
-  // Initial fetch
   useEffect(() => {
     fetchFaculties();
     fetchBookings();
   }, []);
 
-  // Poll for updated bookings every 10 seconds
+  // Poll for updated bookings
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBookings();
@@ -142,12 +138,12 @@ const AdminDashboard = ({ showToast }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Persist active tab in localStorage
+  // Persist tab
   useEffect(() => {
     localStorage.setItem('adminActiveTab', activeTab);
   }, [activeTab]);
 
-  // ----- FACULTY FUNCTIONS -----
+  // Fetch faculties
   const fetchFaculties = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/faculty`);
@@ -159,6 +155,7 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
+  // Add faculty
   const handleAddFaculty = async (e) => {
     e.preventDefault();
     try {
@@ -220,7 +217,7 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // ----- BOOKING FUNCTIONS -----
+  // Bookings
   const fetchBookings = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/bookings`);
@@ -250,7 +247,6 @@ const AdminDashboard = ({ showToast }) => {
     setEditBookingData({
       eventName: booking.eventName,
       coordinator: booking.coordinator,
-      // coordinatorContact: booking.coordinatorContact, // if you want to edit
       eventType: booking.eventType,
       date: booking.date,
       startTime: booking.startTime,
@@ -283,14 +279,19 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // Filter bookings by status
   const filteredBookings = bookings.filter(b => {
     if (filterStatus === 'All') return true;
     return b.status === filterStatus;
   });
 
   return (
-    <div className="admin-dashboard">
+    <div className="admin-dashboard" 
+         style={{
+           // Ensure the dashboard doesn't overflow horizontally
+           maxWidth: '100%',
+           overflowX: 'hidden'
+         }}
+    >
       <h2>Admin Dashboard</h2>
       <div className="tabs">
         <button 
@@ -307,7 +308,6 @@ const AdminDashboard = ({ showToast }) => {
         </button>
       </div>
 
-      {/* ---------- FACULTY TAB ---------- */}
       {activeTab === 'faculty' && (
         <div className="faculty-management">
           <h3>Create New Faculty</h3>
@@ -319,12 +319,13 @@ const AdminDashboard = ({ showToast }) => {
               onChange={(e) => setNewFaculty({ ...newFaculty, name: e.target.value })}
               required 
             />
-            {/* 
-              Department dropdown using DEPARTMENTS array 
-              with a wider minWidth
-            */}
+            {/* Department dropdown with text-wrap styling */}
             <select
-              style={{ minWidth: '300px' }}
+              style={{
+                maxWidth: '100%',
+                whiteSpace: 'normal',
+                overflowWrap: 'break-word'
+              }}
               value={newFaculty.department}
               onChange={(e) => setNewFaculty({ ...newFaculty, department: e.target.value })}
               required
@@ -364,12 +365,21 @@ const AdminDashboard = ({ showToast }) => {
 
           <h3>Faculty List</h3>
           <div className="table-responsive">
-            <table>
+            <table style={{ tableLayout: 'auto' }}>
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                  <th>Department</th>
+                  <th
+                    style={{
+                      // Wrap department column text
+                      maxWidth: '120px',
+                      whiteSpace: 'normal',
+                      wordWrap: 'break-word'
+                    }}
+                  >
+                    Department
+                  </th>
                   <th>Position</th>
                   <th>Username</th>
                   <th>Password</th>
@@ -392,7 +402,11 @@ const AdminDashboard = ({ showToast }) => {
                         </td>
                         <td>
                           <select
-                            style={{ minWidth: '300px' }}
+                            style={{
+                              maxWidth: '120px',
+                              whiteSpace: 'normal',
+                              wordWrap: 'break-word'
+                            }}
                             name="department"
                             value={editingFacultyData.department}
                             onChange={handleFacultyEditChange}
@@ -440,7 +454,16 @@ const AdminDashboard = ({ showToast }) => {
                     ) : (
                       <>
                         <td>{faculty.name}</td>
-                        <td>{faculty.department}</td>
+                        {/* Wrap department cell */}
+                        <td
+                          style={{
+                            maxWidth: '120px',
+                            whiteSpace: 'normal',
+                            wordWrap: 'break-word'
+                          }}
+                        >
+                          {faculty.department}
+                        </td>
                         <td>{faculty.position}</td>
                         <td>{faculty.username}</td>
                         <td>{"********"}</td>
@@ -458,7 +481,6 @@ const AdminDashboard = ({ showToast }) => {
         </div>
       )}
 
-      {/* ---------- BOOKING TAB ---------- */}
       {activeTab === 'bookings' && (
         <div className="booking-management">
           <h3>Booking Requests</h3>
@@ -471,15 +493,21 @@ const AdminDashboard = ({ showToast }) => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <div className="table-responsive">
-            <table>
+          {/* 
+            2. Vertically scrollable bookings table
+            Give it a fixed max height and overflow-y: auto
+          */}
+          <div
+            className="table-responsive"
+            style={{
+              maxHeight: '400px', // adjust as needed
+              overflowY: 'auto'
+            }}
+          >
+            <table style={{ tableLayout: 'auto' }}>
               <thead>
                 <tr>
                   <th>ID</th>
-                  {/* 
-                    Add "Coordinator" and "Coordinator Contact" columns 
-                    to show that info in the booking table
-                  */}
                   <th>Coordinator</th>
                   <th>Contact</th>
                   <th>Event Name</th>
@@ -494,7 +522,6 @@ const AdminDashboard = ({ showToast }) => {
                   <tr key={b.id}>
                     <td>{b.id}</td>
                     <td>{b.coordinator}</td>
-                    {/* This depends on your backend returning 'coordinatorContact' */}
                     <td>{b.coordinatorContact || "N/A"}</td>
                     {editBookingId === b.id ? (
                       <>
