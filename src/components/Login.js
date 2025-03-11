@@ -53,6 +53,12 @@ const Login = () => {
         <div className="form-group">
           <label>Password:</label>
           <div className="password-wrapper">
+            <input 
+              type={showPassword ? "text" : "password"}
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              required 
+            />
             <button 
               type="button" 
               className="toggle-password" 
@@ -71,12 +77,6 @@ const Login = () => {
                 </svg>
               )}
             </button>
-            <input 
-              type={showPassword ? "text" : "password"}
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              required 
-            />
           </div>
         </div>
         <div className="form-group remember-me">
