@@ -1,10 +1,9 @@
-// frontend/src/components/FacultyDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import '../styles/FacultyDashboard.css';
 
-// 1. Define the event types array
+// Example array of event types
 const EVENT_TYPES = [
   "Seminar",
   "Workshop",
@@ -32,21 +31,23 @@ const FacultyDashboard = ({ showToast }) => {
   const location = useLocation();
   const user = location.state?.user || JSON.parse(localStorage.getItem("user"));
   const facultyId = user?.id;
+
   const initialTab = localStorage.getItem('activeTab') || 'newBooking';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // New booking state
+  // 1. We have eventType AND customEventType for "Other"
   const [bookingData, setBookingData] = useState({
     eventName: '',
     coordinator: '',
+    coordinatorContact: '',
     eventType: '',
+    customEventType: '', // NEW: store user-typed text if eventType === 'Other'
     date: '',
     startTime: '',
     endTime: '',
     description: ''
   });
 
-  // My Bookings
   const [bookings, setBookings] = useState([]);
 
   // Editing an existing booking
@@ -61,14 +62,14 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
-  // Fetch initial bookings if facultyId is present
+  // Fetch bookings
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
     }
   }, [facultyId]);
 
-  // Poll for updated bookings every 10 seconds
+  // Poll every 10 seconds
   useEffect(() => {
     if (facultyId) {
       const interval = setInterval(() => {
@@ -78,12 +79,11 @@ const FacultyDashboard = ({ showToast }) => {
     }
   }, [facultyId]);
 
-  // Persist active tab in localStorage
+  // Persist active tab
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
-  // Fetch all bookings for this faculty
   const fetchBookings = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/bookings?facultyId=${facultyId}`);
@@ -95,21 +95,38 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Submit a new booking
+  // 2. On submit, if eventType === 'Other', we replace it with the user-typed customEventType
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
       showToast("Calculating your booking...", "info");
+
+      // If user selected "Other," use the custom text as the final eventType
+      let finalEventType = bookingData.eventType;
+      if (bookingData.eventType === 'Other' && bookingData.customEventType.trim() !== '') {
+        finalEventType = bookingData.customEventType.trim();
+      }
+
+      // Build the final booking object to send
+      const finalBookingData = {
+        ...bookingData,
+        eventType: finalEventType
+      };
+      // Remove customEventType from the object so it doesn't go to backend
+      delete finalBookingData.customEventType;
+
       const res = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking`,
-        { facultyId, ...bookingData }
+        { facultyId, ...finalBookingData }
       );
       if (res.data.success) {
-        // Reset the booking form
+        // Reset the form
         setBookingData({
           eventName: '',
           coordinator: '',
+          coordinatorContact: '',
           eventType: '',
+          customEventType: '',
           date: '',
           startTime: '',
           endTime: '',
@@ -125,7 +142,7 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Begin editing an existing booking
+  // Editing logic (unchanged)
   const startEditBooking = (booking) => {
     setEditBookingId(booking.id);
     setEditBookingData({
@@ -139,12 +156,10 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
-  // Cancel editing
   const cancelEdit = () => {
     setEditBookingId(null);
   };
 
-  // Handle changes in the edit form
   const handleEditChange = (e) => {
     setEditBookingData({
       ...editBookingData,
@@ -152,7 +167,6 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
-  // Save the edited booking
   const saveEditedBooking = async (bookingId) => {
     try {
       const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`, editBookingData);
@@ -184,7 +198,6 @@ const FacultyDashboard = ({ showToast }) => {
         </button>
       </div>
 
-      {/* --- NEW BOOKING TAB --- */}
       {activeTab === 'newBooking' && (
         <div className="new-booking">
           <h3>Create a New Booking</h3>
@@ -203,6 +216,7 @@ const FacultyDashboard = ({ showToast }) => {
                 required 
               />
             </div>
+
             <div className="form-group">
               <label>Event Coordinator:</label>
               <input 
@@ -214,7 +228,17 @@ const FacultyDashboard = ({ showToast }) => {
               />
             </div>
 
-            {/* 2. Use a select for event types + "Other" text field */}
+            <div className="form-group">
+              <label>Coordinator Contact:</label>
+              <input
+                type="text"
+                placeholder="Contact Number"
+                value={bookingData.coordinatorContact}
+                onChange={(e) => setBookingData({ ...bookingData, coordinatorContact: e.target.value })}
+                required
+              />
+            </div>
+
             <div className="form-group">
               <label>Event Type:</label>
               <select
@@ -229,13 +253,14 @@ const FacultyDashboard = ({ showToast }) => {
                   </option>
                 ))}
               </select>
-              {/* If user selects "Other", show a text input to specify */}
+
+              {/* If user selects "Other", show a text input for customEventType */}
               {bookingData.eventType === 'Other' && (
                 <input 
                   type="text" 
                   placeholder="Specify Event Type" 
-                  value={bookingData.eventType}
-                  onChange={(e) => setBookingData({ ...bookingData, eventType: e.target.value })}
+                  value={bookingData.customEventType}
+                  onChange={(e) => setBookingData({ ...bookingData, customEventType: e.target.value })}
                   required 
                 />
               )}
@@ -282,7 +307,6 @@ const FacultyDashboard = ({ showToast }) => {
         </div>
       )}
 
-      {/* --- MY BOOKINGS TAB --- */}
       {activeTab === 'myBookings' && (
         <div className="my-bookings">
           <h3>My Bookings</h3>
@@ -337,7 +361,6 @@ const FacultyDashboard = ({ showToast }) => {
                         </td>
                         <td>{b.status}</td>
                         <td>
-                          {/* Save/Cancel buttons */}
                           <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
                           <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
                         </td>
