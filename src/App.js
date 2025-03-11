@@ -29,14 +29,24 @@ function PrivateRoute({ children }) {
  * StartupRedirect:
  * - If a user is found in localStorage, redirect to their dashboard.
  * - Otherwise, redirect to /login.
+ * 
+ * This runs when the user visits "/". 
+ * If they have not logged out, localStorage still has their account,
+ * so we skip the login page and send them directly to /admin or /faculty.
  */
 function StartupRedirect() {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user) {
-    // If user is admin, go to /admin; if faculty, go to /faculty
-    return <Navigate to={user.role === 'admin' ? '/admin' : '/faculty'} replace />;
+    if (user.role === 'admin') {
+      return <Navigate to="/admin" replace />;
+    } else if (user.role === 'faculty') {
+      return <Navigate to="/faculty" replace />;
+    } else {
+      // Fallback if user.role isn't recognized
+      return <Navigate to="/login" replace />;
+    }
   }
-  // No user found, go to /login (or show a public page if you prefer)
+  // No user found, go to /login
   return <Navigate to="/login" replace />;
 }
 
