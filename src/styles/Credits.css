@@ -1,24 +1,16 @@
-:root {
-  --primary: #3674B5;
-  --secondary: #578FCA;
-  --accent: #A1E3F9;
-  --neutral: #D1F8EF;
-  --gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--neutral));
-}
-
 .credits-container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--gradient);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   padding: 20px;
 }
 
 .credits-card {
-  background: var(--neutral);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 40px 30px;
   text-align: center;
   max-width: 500px;
@@ -29,36 +21,24 @@
 .credits-card h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: var(--accent);
+  color: #333;
 }
 
 .credits-card p {
   font-size: 1.1rem;
   margin-bottom: 15px;
-  color: var(--primary);
-  line-height: 1.5;
+  color: #555;
 }
 
-.color-sample {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  margin: 0 4px;
-  border-radius: 50%;
-  vertical-align: middle;
+.credits-card a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  .credits-card {
-    padding: 20px;
-  }
-  .credits-card h1 {
-    font-size: 2rem;
-  }
-  .credits-card p {
-    font-size: 1rem;
-  }
+.credits-card a:hover {
+  color: #5a67d8;
 }
 
 @keyframes popIn {
