@@ -57,25 +57,26 @@
   background: #5a67d8;
 }
 
-/* New styles for the password field wrapper */
+/* Styles for password wrapper and toggle icon */
 .password-wrapper {
   position: relative;
 }
 
 .password-wrapper input {
-  padding-right: 70px; /* extra space for the toggle button */
+  /* Extra left padding to accommodate the eye icon */
+  padding-left: 40px;
 }
 
 .toggle-password {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
   border: none;
-  color: #667eea;
   cursor: pointer;
-  font-size: 0.9em;
+  color: #667eea;
+  padding: 0;
 }
 
 /* Slide in animation */
