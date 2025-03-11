@@ -9,7 +9,7 @@ const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Check localStorage (or sessionStorage if you prefer) for a user
+    // Always check localStorage for the user
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -17,16 +17,20 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
-    // Remove user from localStorage (and sessionStorage if used)
+    // Remove user from localStorage
     localStorage.removeItem('user');
-    // sessionStorage.removeItem('user'); // Uncomment if needed
+
+    // Clear the user from state
     setUser(null);
+
+    // Close mobile menu if open
     setMobileMenuOpen(false);
+
     // Navigate to /login, replacing history so user can't go back
     navigate('/login', { replace: true });
   };
 
-  // Decide home path based on user role
+  // Decide the home path based on the user's role
   let homePath = '/';
   if (user) {
     homePath = user.role === 'admin' ? '/admin' : '/faculty';
