@@ -6,14 +6,10 @@ import '../styles/FacultyDashboard.css';
 
 const FacultyDashboard = ({ showToast }) => {
   const location = useLocation();
-  // Retrieve logged-in user from route state or localStorage
   const user = location.state?.user || JSON.parse(localStorage.getItem("user"));
   const facultyId = user?.id;
-
-  // Get initial active tab from localStorage or default to 'newBooking'
   const initialTab = localStorage.getItem('activeTab') || 'newBooking';
   const [activeTab, setActiveTab] = useState(initialTab);
-
   const [bookingData, setBookingData] = useState({
     eventName: '',
     coordinator: '',
@@ -24,8 +20,6 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
   const [bookings, setBookings] = useState([]);
-  
-  // For editing an existing booking in "My Bookings"
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
@@ -37,14 +31,12 @@ const FacultyDashboard = ({ showToast }) => {
     description: ''
   });
 
-  // Initial fetch when facultyId is available
   useEffect(() => {
     if (facultyId) {
       fetchBookings();
     }
   }, [facultyId]);
 
-  // Poll every 30 seconds (30000 milliseconds) for updated bookings
   useEffect(() => {
     if (facultyId) {
       const interval = setInterval(() => {
@@ -54,7 +46,6 @@ const FacultyDashboard = ({ showToast }) => {
     }
   }, [facultyId]);
 
-  // Whenever activeTab changes, store it in localStorage
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
@@ -70,16 +61,12 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // New Booking submission handler
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Immediately show "Calculating..." alert
       showToast("Calculating your booking...", "info");
-
       const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking`, { facultyId, ...bookingData });
       if (res.data.success) {
-        // Reset the booking form
         setBookingData({
           eventName: '',
           coordinator: '',
@@ -89,7 +76,6 @@ const FacultyDashboard = ({ showToast }) => {
           endTime: '',
           description: ''
         });
-        // After 2 seconds, update the alert message to a success message
         setTimeout(() => {
           showToast("Your booking request has been sent successfully.", "success");
         }, 2000);
@@ -100,7 +86,6 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Begin editing a booking
   const startEditBooking = (booking) => {
     setEditBookingId(booking.id);
     setEditBookingData({
@@ -114,12 +99,10 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
-  // Cancel editing
   const cancelEdit = () => {
     setEditBookingId(null);
   };
 
-  // Handle changes in the edit form
   const handleEditChange = (e) => {
     setEditBookingData({
       ...editBookingData,
@@ -127,7 +110,6 @@ const FacultyDashboard = ({ showToast }) => {
     });
   };
 
-  // Save the edited booking (allowed only if status is "Pending")
   const saveEditedBooking = async (bookingId) => {
     try {
       const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/faculty/booking/${bookingId}`, editBookingData);
@@ -249,77 +231,80 @@ const FacultyDashboard = ({ showToast }) => {
       {activeTab === 'myBookings' && (
         <div className="my-bookings">
           <h3>My Bookings</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Event Name</th>
-                <th>Date</th>
-                <th>Time Slot</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map(b => (
-                <tr key={b.id}>
-                  <td>{b.id}</td>
-                  {editBookingId === b.id ? (
-                    <>
-                      <td>
-                        <input 
-                          type="text" 
-                          name="eventName"
-                          value={editBookingData.eventName} 
-                          onChange={handleEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="date" 
-                          name="date"
-                          value={editBookingData.date} 
-                          onChange={handleEditChange}
-                        />
-                      </td>
-                      <td>
-                        <input 
-                          type="time" 
-                          name="startTime"
-                          value={editBookingData.startTime} 
-                          onChange={handleEditChange}
-                        />
-                        {" - "}
-                        <input 
-                          type="time" 
-                          name="endTime"
-                          value={editBookingData.endTime} 
-                          onChange={handleEditChange}
-                        />
-                      </td>
-                      <td>{b.status}</td>
-                      <td>
-                        <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
-                        <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{b.eventName}</td>
-                      <td>{b.date}</td>
-                      <td>{b.startTime} - {b.endTime}</td>
-                      <td>{b.status}</td>
-                      <td>
-                        {b.status === 'Pending' && (
-                          <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
-                        )}
-                      </td>
-                    </>
-                  )}
+          {/* Wrap table in a responsive container */}
+          <div className="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Event Name</th>
+                  <th>Date</th>
+                  <th>Time Slot</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {bookings.map(b => (
+                  <tr key={b.id}>
+                    <td>{b.id}</td>
+                    {editBookingId === b.id ? (
+                      <>
+                        <td>
+                          <input 
+                            type="text" 
+                            name="eventName"
+                            value={editBookingData.eventName} 
+                            onChange={handleEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="date" 
+                            name="date"
+                            value={editBookingData.date} 
+                            onChange={handleEditChange}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="time" 
+                            name="startTime"
+                            value={editBookingData.startTime} 
+                            onChange={handleEditChange}
+                          />
+                          {" - "}
+                          <input 
+                            type="time" 
+                            name="endTime"
+                            value={editBookingData.endTime} 
+                            onChange={handleEditChange}
+                          />
+                        </td>
+                        <td>{b.status}</td>
+                        <td>
+                          <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
+                          <button onClick={cancelEdit} className="btn-cancel">Cancel</button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td>{b.eventName}</td>
+                        <td>{b.date}</td>
+                        <td>{b.startTime} - {b.endTime}</td>
+                        <td>{b.status}</td>
+                        <td>
+                          {b.status === 'Pending' && (
+                            <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
+                          )}
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
