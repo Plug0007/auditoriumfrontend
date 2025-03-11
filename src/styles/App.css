@@ -1,33 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-:root {
-  /* Luxury Color Palette */
-  --primary: #3674B5;       /* Rich Blue */
-  --secondary: #578FCA;     /* Lighter Blue */
-  --accent: #A1E3F9;        /* Pale Blue */
-  --neutral: #D1F8EF;       /* Soft Mint/Neutral */
-  
-  /* Gradient for common backgrounds */
-  --gradient-primary: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--neutral));
-}
-
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background: var(--neutral);
-  color: var(--primary);
+  background: #f0f2f5;
+  color: #333;
 }
 
 a {
-  color: var(--primary);
+  color: #667eea;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: var(--accent);
+  color: #5a67d8;
 }
+
 
 .container {
   width: 90%;
@@ -35,7 +25,7 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-/* Layout adjustments for larger screens */
+/* Responsive layout adjustments */
 @media (min-width: 768px) {
   .container {
     width: 70%;
@@ -48,9 +38,12 @@ a:hover {
   }
 }
 
-/* Interactive transitions */
+/* Smooth transitions for interactive elements */
 button, a {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-button:hover,
+button:hover, a:hover {
+  background-color: #0d47a1;
+  color: #fff;
+}
