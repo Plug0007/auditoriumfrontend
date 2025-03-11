@@ -3,6 +3,92 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AdminDashboard.css';
 
+// 1. New department list
+const DEPARTMENTS = [
+  "Office",
+  "Political Science - Junior College",
+  "Arabic - Junior College",
+  "Biology - Junior College",
+  "Chemistry - Junior College",
+  "Commerce - Junior College",
+  "Economics - Junior College",
+  "English - Junior College",
+  "Hindi - Junior College",
+  "History - Junior College",
+  "Information Technology - Junior College",
+  "Mathematics - Junior College",
+  "Physical Education - Junior College",
+  "Physics - Junior College",
+  // Remove duplicate if needed
+  "Psychology - Junior College",
+  "Sociology - Junior College",
+  "Urdu - Junior College",
+  "Accountancy - Degree College",
+  "Arabic - Degree College",
+  "Islamic Studies - Degree College",
+  "Botany - Degree College",
+  "Chemistry - Degree College",
+  "Commerce - Degree College",
+  "Economics - Degree College",
+  "English - Degree College",
+  "Hindi - Degree College",
+  "History - Degree College",
+  "Mathematics - Degree College",
+  "Physics - Degree College",
+  "Political Science - Degree College",
+  "Psychology - Degree College",
+  "Sociology - Degree College",
+  "Urdu - Degree College",
+  "Zoology - Degree College",
+  "College Development Committee",
+  "CARE",
+  "Internal Committee",
+  "Admission Committee",
+  "Exam Committee",
+  "IQAC",
+  "College Grievance Redressal Cell",
+  "Students and Staff Welfare and Redressal Committee",
+  "Women Development Cell",
+  "Anti-Ragging Committee",
+  "Anti-Ragging Squad",
+  "Code of Conduct Monitoring Committee",
+  "Purchase Committee",
+  "Staff Common Room Committee",
+  "Students Forum",
+  "Ladies/Girls Common Room Committee",
+  "Gymkhana Committee",
+  "Students Aid Funds Committee",
+  "Library Committee",
+  "Book Bank Committee",
+  "Attendance Committee",
+  "Discipline Committee",
+  "Science Association",
+  "NSS Coordination Committee",
+  "NCC Coordination Committee",
+  "DLLE",
+  "Time Table Committee",
+  "Research Committee",
+  "Magazine Committee - SADAF",
+  "E-Tabloid ? MyDashBoard",
+  "Scholarship Committee",
+  "Academic Progress Monitoring Committee",
+  "Planning Board",
+  "Sarus Nature Club",
+  "Vocational & Career Guidance Cell",
+  "Media & Public Relation",
+  "Training and Placement Cell",
+  "Canteen & Book Stall Committee",
+  "Avishkar Committee",
+  "International Olympiad Committee",
+  "Degree Certificate Distribution Committee",
+  "Green Club",
+  "Chemistry Club of Maharashtra (CCMC)",
+  "BAF - Degree College",
+  "BMS - Degree College",
+  "Computer Science - Degree College",
+  "Information Technology - Degree College"
+];
+
 const AdminDashboard = ({ showToast }) => {
   // Retrieve the active tab from localStorage or default to 'faculty'
   const initialTab = localStorage.getItem('adminActiveTab') || 'faculty';
@@ -195,6 +281,7 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
+  // Filter bookings by status
   const filteredBookings = bookings.filter(b => {
     if (filterStatus === 'All') return true;
     return b.status === filterStatus;
@@ -217,6 +304,8 @@ const AdminDashboard = ({ showToast }) => {
           Booking Management
         </button>
       </div>
+
+      {/* --- FACULTY TAB --- */}
       {activeTab === 'faculty' && (
         <div className="faculty-management">
           <h3>Create New Faculty</h3>
@@ -228,19 +317,16 @@ const AdminDashboard = ({ showToast }) => {
               onChange={(e) => setNewFaculty({ ...newFaculty, name: e.target.value })}
               required 
             />
+            {/* Department dropdown using the new list */}
             <select
               value={newFaculty.department}
               onChange={(e) => setNewFaculty({ ...newFaculty, department: e.target.value })}
               required
             >
               <option value="">Select Department</option>
-              <option value="BSc">BSc</option>
-              <option value="BMS">BMS</option>
-              <option value="BSc CS">BSc CS</option>
-              <option value="BSc IT">BSc IT</option>
-              <option value="Junior College 11-12 Science">Junior College 11-12 Science</option>
-              <option value="Commerce">Commerce</option>
-              <option value="Arts">Arts</option>
+              {DEPARTMENTS.map((dept) => (
+                <option key={dept} value={dept}>{dept}</option>
+              ))}
             </select>
             <select
               value={newFaculty.position}
@@ -267,8 +353,8 @@ const AdminDashboard = ({ showToast }) => {
             />
             <button type="submit">Add Faculty</button>
           </form>
+
           <h3>Faculty List</h3>
-          {/* Wrap table in a responsive container */}
           <div className="table-responsive">
             <table>
               <thead>
@@ -303,13 +389,9 @@ const AdminDashboard = ({ showToast }) => {
                             onChange={handleFacultyEditChange}
                           >
                             <option value="">Select Department</option>
-                            <option value="BSc">BSc</option>
-                            <option value="BMS">BMS</option>
-                            <option value="BSc CS">BSc CS</option>
-                            <option value="BSc IT">BSc IT</option>
-                            <option value="Junior College 11-12 Science">Junior College 11-12 Science</option>
-                            <option value="Commerce">Commerce</option>
-                            <option value="Arts">Arts</option>
+                            {DEPARTMENTS.map((dept) => (
+                              <option key={dept} value={dept}>{dept}</option>
+                            ))}
                           </select>
                         </td>
                         <td>
@@ -364,6 +446,8 @@ const AdminDashboard = ({ showToast }) => {
           </div>
         </div>
       )}
+
+      {/* --- BOOKINGS TAB --- */}
       {activeTab === 'bookings' && (
         <div className="booking-management">
           <h3>Booking Requests</h3>
@@ -376,13 +460,13 @@ const AdminDashboard = ({ showToast }) => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          {/* Wrap table in a responsive container */}
           <div className="table-responsive">
             <table>
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Faculty ID</th>
+                  {/* Replaced "Faculty ID" with "Faculty Name" */}
+                  <th>Faculty Name</th>
                   <th>Event Name</th>
                   <th>Coordinator</th>
                   <th>Date</th>
@@ -392,79 +476,85 @@ const AdminDashboard = ({ showToast }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredBookings.map(b => (
-                  <tr key={b.id}>
-                    <td>{b.id}</td>
-                    <td>{b.facultyId}</td>
-                    {editBookingId === b.id ? (
-                      <>
-                        <td>
-                          <input 
-                            type="text" 
-                            name="eventName"
-                            value={editBookingData.eventName} 
-                            onChange={handleBookingEditChange}
-                          />
-                        </td>
-                        <td>
-                          <input 
-                            type="text" 
-                            name="coordinator"
-                            value={editBookingData.coordinator} 
-                            onChange={handleBookingEditChange}
-                          />
-                        </td>
-                        <td>
-                          <input 
-                            type="date" 
-                            name="date"
-                            value={editBookingData.date} 
-                            onChange={handleBookingEditChange}
-                          />
-                        </td>
-                        <td>
-                          <input 
-                            type="time" 
-                            name="startTime"
-                            value={editBookingData.startTime} 
-                            onChange={handleBookingEditChange}
-                          />
-                          {" - "}
-                          <input 
-                            type="time" 
-                            name="endTime"
-                            value={editBookingData.endTime} 
-                            onChange={handleBookingEditChange}
-                          />
-                        </td>
-                        <td>
-                          <select name="status" value={editBookingData.status} onChange={handleBookingEditChange}>
-                            <option value="Pending">Pending</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Rejected">Rejected</option>
-                          </select>
-                        </td>
-                        <td>
-                          <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
-                          <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
-                        </td>
-                      </>
-                    ) : (
-                      <>
-                        <td>{b.eventName}</td>
-                        <td>{b.coordinator}</td>
-                        <td>{b.date}</td>
-                        <td>{b.startTime} - {b.endTime}</td>
-                        <td>{b.status}</td>
-                        <td>
-                          <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
-                          <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
-                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))}
+                {filteredBookings.map((b) => {
+                  // find the matching faculty for each booking
+                  const faculty = faculties.find(f => f.id === b.facultyId);
+                  const facultyName = faculty ? faculty.name : "Unknown";
+
+                  return (
+                    <tr key={b.id}>
+                      <td>{b.id}</td>
+                      <td>{facultyName}</td>
+                      {editBookingId === b.id ? (
+                        <>
+                          <td>
+                            <input 
+                              type="text" 
+                              name="eventName"
+                              value={editBookingData.eventName} 
+                              onChange={handleBookingEditChange}
+                            />
+                          </td>
+                          <td>
+                            <input 
+                              type="text" 
+                              name="coordinator"
+                              value={editBookingData.coordinator} 
+                              onChange={handleBookingEditChange}
+                            />
+                          </td>
+                          <td>
+                            <input 
+                              type="date" 
+                              name="date"
+                              value={editBookingData.date} 
+                              onChange={handleBookingEditChange}
+                            />
+                          </td>
+                          <td>
+                            <input 
+                              type="time" 
+                              name="startTime"
+                              value={editBookingData.startTime} 
+                              onChange={handleBookingEditChange}
+                            />
+                            {" - "}
+                            <input 
+                              type="time" 
+                              name="endTime"
+                              value={editBookingData.endTime} 
+                              onChange={handleBookingEditChange}
+                            />
+                          </td>
+                          <td>
+                            <select name="status" value={editBookingData.status} onChange={handleBookingEditChange}>
+                              <option value="Pending">Pending</option>
+                              <option value="Approved">Approved</option>
+                              <option value="Rejected">Rejected</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button onClick={() => saveEditedBooking(b.id)} className="btn-save">Save</button>
+                            <button onClick={cancelEditBooking} className="btn-cancel">Cancel</button>
+                          </td>
+                        </>
+                      ) : (
+                        <>
+                          <td>{b.eventName}</td>
+                          <td>{b.coordinator}</td>
+                          <td>{b.date}</td>
+                          <td>{b.startTime} - {b.endTime}</td>
+                          <td>{b.status}</td>
+                          <td>
+                            <button onClick={() => startEditBooking(b)} className="btn-edit">Edit</button>
+                            <button onClick={() => updateBookingStatus(b.id, 'Approved')} className="btn-approve">Approve</button>
+                            <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className="btn-reject">Reject</button>
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
