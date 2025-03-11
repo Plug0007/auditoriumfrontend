@@ -111,31 +111,75 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .faculty-dashboard {
-    padding: 10px;
+    padding: 15px;
   }
+
   .tabs button {
     padding: 10px 15px;
-    margin: 0 3px;
+    margin: 0 5px;
     font-size: 0.9em;
   }
+
   .new-booking, .my-bookings {
-    max-width: 100%;
+    max-width: 80%;
   }
-  .new-booking form, .my-bookings table {
+
+  .new-booking form,
+  .my-bookings table {
     font-size: 0.9em;
   }
+
   .form-group input,
   .form-group select,
   .form-group textarea {
     padding: 10px;
     font-size: 0.9em;
   }
+
   .submit-btn {
     padding: 10px;
     font-size: 0.9em;
   }
+
+  .my-bookings table th, .my-bookings table td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .faculty-dashboard {
+    padding: 10px;
+  }
+
+  .tabs button {
+    padding: 10px 15px;
+    margin: 0 3px;
+    font-size: 0.9em;
+  }
+
+  .new-booking, .my-bookings {
+    max-width: 100%;
+  }
+
+  .new-booking form,
+  .my-bookings table {
+    font-size: 0.9em;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .submit-btn {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
   .my-bookings table th, .my-bookings table td {
     padding: 8px;
   }
@@ -145,22 +189,32 @@
   .faculty-dashboard h2 {
     font-size: 1.5rem;
   }
+
   .tabs button {
     padding: 8px 10px;
     margin: 2px;
     font-size: 0.8em;
   }
+
   .form-group input,
   .form-group select,
   .form-group textarea {
+    padding: 8px;
     font-size: 0.8em;
   }
+
   .submit-btn {
     padding: 8px;
     font-size: 0.8em;
   }
+
   .my-bookings table th, .my-bookings table td {
     padding: 6px;
     font-size: 0.75em;
+  }
+
+  .new-booking h3,
+  .my-bookings h3 {
+    font-size: 1.1rem;
   }
 }
