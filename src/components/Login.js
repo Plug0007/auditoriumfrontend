@@ -19,13 +19,11 @@ const Login = () => {
       const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { username, password });
       if (res.data.success) {
         const user = res.data.user;
-        // Save the user in localStorage if "Remember Me" is checked, otherwise use sessionStorage
         if (rememberMe) {
           localStorage.setItem("user", JSON.stringify(user));
         } else {
           sessionStorage.setItem("user", JSON.stringify(user));
         }
-        // Redirect based on user role. Using "replace" prevents back button from showing the login page.
         if (user.role === 'admin') {
           navigate('/admin', { state: { user }, replace: true });
         } else {
@@ -55,19 +53,30 @@ const Login = () => {
         <div className="form-group">
           <label>Password:</label>
           <div className="password-wrapper">
+            <button 
+              type="button" 
+              className="toggle-password" 
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                // Eye slash icon for "hide password"
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 012.376-4.197M9.88 9.88a3 3 0 104.24 4.24M15 12a3 3 0 01-3 3m0-6a3 3 0 013 3m4.24 4.24a10.05 10.05 0 01-2.376 4.197M3 3l18 18" />
+                </svg>
+              ) : (
+                // Eye icon for "show password"
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
+                </svg>
+              )}
+            </button>
             <input 
               type={showPassword ? "text" : "password"}
               value={password} 
               onChange={e => setPassword(e.target.value)} 
               required 
             />
-            <button 
-              type="button" 
-              className="toggle-password" 
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
           </div>
         </div>
         <div className="form-group remember-me">
