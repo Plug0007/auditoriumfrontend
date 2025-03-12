@@ -97,9 +97,51 @@
   text-align: left;
 }
 
-.filter {
-  text-align: right;
+/* Updated Filter Section */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border-radius: 8px;
   margin-bottom: 15px;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-item label {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+}
+
+.filter-item input,
+.filter-item select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Apply Filters Button */
+.btn-apply {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-apply:hover {
+  background-color: #0056b3;
 }
 
 /* Modern action buttons */
@@ -198,7 +240,10 @@
     font-size: 0.9em;
   }
 
-  .filter {
+  .filter-container,
+  .filter-item label,
+  .filter-item input,
+  .filter-item select {
     font-size: 0.9em;
   }
 }
@@ -223,7 +268,10 @@
     font-size: 0.85em;
   }
 
-  .filter {
+  .filter-container,
+  .filter-item label,
+  .filter-item input,
+  .filter-item select {
     font-size: 0.9em;
   }
 
@@ -254,7 +302,10 @@
     font-size: 0.75em;
   }
 
-  .filter {
+  .filter-container,
+  .filter-item label,
+  .filter-item input,
+  .filter-item select {
     font-size: 0.85em;
   }
 
@@ -274,7 +325,7 @@
   }
 }
 
-/* New: Responsive container for tables */
+/* Responsive container for tables */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
