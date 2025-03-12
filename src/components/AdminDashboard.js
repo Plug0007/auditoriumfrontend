@@ -1,9 +1,7 @@
-// frontend/src/components/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AdminDashboard.css';
 
-// Large department list
 const DEPARTMENTS = [
   "Office",
   "Political Science - Junior College",
@@ -191,7 +189,7 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // Fetch bookings with optional filters (status, date, start time)
+  // Fetch bookings with optional filters
   const fetchBookings = async () => {
     try {
       let queryParams = [];
@@ -264,7 +262,6 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // Use server-side filtering via query parameters – no additional client filter needed here
   const filteredBookings = bookings;
 
   return (
@@ -430,19 +427,27 @@ const AdminDashboard = ({ showToast }) => {
       {activeTab === 'bookings' && (
         <div className="booking-management">
           <h3>Booking Requests</h3>
-          <div className="filter">
-            <label>Filter by Status:</label>
-            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
-              <option value="All">All</option>
-              <option value="Pending">Pending</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <label>Filter by Date:</label>
-            <input type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
-            <label>Filter by Start Time:</label>
-            <input type="time" value={filterTime} onChange={(e) => setFilterTime(e.target.value)} />
-            <button onClick={fetchBookings}>Apply Filters</button>
+          <div className="filter-container">
+            <div className="filter-item">
+              <label htmlFor="status">Status:</label>
+              <select id="status" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div className="filter-item">
+              <label htmlFor="date">Date:</label>
+              <input id="date" type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
+            </div>
+            <div className="filter-item">
+              <label htmlFor="time">Start Time:</label>
+              <input id="time" type="time" value={filterTime} onChange={(e) => setFilterTime(e.target.value)} />
+            </div>
+            <div className="filter-item">
+              <button className="btn-apply" onClick={fetchBookings}>Apply Filters</button>
+            </div>
           </div>
           <div className="table-responsive" style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <table style={{ tableLayout: 'auto' }}>
