@@ -57,42 +57,14 @@ const DEPARTMENTS = [
   "Ladies/Girls Common Room Committee",
   "Gymkhana Committee",
   "Students Aid Funds Committee",
-  "Library Committee",
-  "Book Bank Committee",
-  "Attendance Committee",
-  "Discipline Committee",
-  "Science Association",
-  "NSS Coordination Committee",
-  "NCC Coordination Committee",
-  "DLLE",
-  "Time Table Committee",
-  "Research Committee",
-  "Magazine Committee - SADAF",
-  "E-Tabloid ? MyDashBoard",
-  "Scholarship Committee",
-  "Academic Progress Monitoring Committee",
-  "Planning Board",
-  "Sarus Nature Club",
-  "Vocational & Career Guidance Cell",
-  "Media & Public Relation",
-  "Training and Placement Cell",
-  "Canteen & Book Stall Committee",
-  "Avishkar Committee",
-  "International Olympiad Committee",
-  "Degree Certificate Distribution Committee",
-  "Green Club",
-  "Chemistry Club of Maharashtra (CCMC)",
-  "BAF - Degree College",
-  "BMS - Degree College",
-  "Computer Science - Degree College",
-  "Information Technology - Degree College"
+  "Library Committee"
 ];
 
 const AdminDashboard = ({ showToast }) => {
   const initialTab = localStorage.getItem('adminActiveTab') || 'faculty';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // Faculty management
+  // Faculty management state
   const [faculties, setFaculties] = useState([]);
   const [newFaculty, setNewFaculty] = useState({
     name: '',
@@ -110,9 +82,11 @@ const AdminDashboard = ({ showToast }) => {
     password: ''
   });
 
-  // Booking management
+  // Booking management state
   const [bookings, setBookings] = useState([]);
   const [filterStatus, setFilterStatus] = useState('All');
+  const [filterDate, setFilterDate] = useState('');
+  const [filterTime, setFilterTime] = useState('');
   const [editBookingId, setEditBookingId] = useState(null);
   const [editBookingData, setEditBookingData] = useState({
     eventName: '',
@@ -130,15 +104,15 @@ const AdminDashboard = ({ showToast }) => {
     fetchBookings();
   }, []);
 
-  // Poll for updated bookings
+  // Poll for updated bookings every 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBookings();
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [filterStatus, filterDate, filterTime]);
 
-  // Persist tab
+  // Persist active tab in localStorage
   useEffect(() => {
     localStorage.setItem('adminActiveTab', activeTab);
   }, [activeTab]);
@@ -217,10 +191,21 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  // Bookings
+  // Fetch bookings with optional filters (status, date, start time)
   const fetchBookings = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/bookings`);
+      let queryParams = [];
+      if (filterStatus && filterStatus !== 'All') {
+        queryParams.push(`status=${filterStatus}`);
+      }
+      if (filterDate) {
+        queryParams.push(`date=${filterDate}`);
+      }
+      if (filterTime) {
+        queryParams.push(`startTime=${filterTime}`);
+      }
+      const queryString = queryParams.length ? `?${queryParams.join('&')}` : '';
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/bookings${queryString}`);
       if (res.data.success) {
         setBookings(res.data.bookings);
       }
@@ -279,31 +264,17 @@ const AdminDashboard = ({ showToast }) => {
     }
   };
 
-  const filteredBookings = bookings.filter(b => {
-    if (filterStatus === 'All') return true;
-    return b.status === filterStatus;
-  });
+  // Use server-side filtering via query parameters – no additional client filter needed here
+  const filteredBookings = bookings;
 
   return (
-    <div className="admin-dashboard" 
-         style={{
-           // Ensure the dashboard doesn't overflow horizontally
-           maxWidth: '100%',
-           overflowX: 'hidden'
-         }}
-    >
+    <div className="admin-dashboard" style={{ maxWidth: '100%', overflowX: 'hidden' }}>
       <h2>Admin Dashboard</h2>
       <div className="tabs">
-        <button 
-          onClick={() => setActiveTab('faculty')} 
-          className={activeTab === 'faculty' ? 'active' : ''}
-        >
+        <button onClick={() => setActiveTab('faculty')} className={activeTab === 'faculty' ? 'active' : ''}>
           Faculty Management
         </button>
-        <button 
-          onClick={() => setActiveTab('bookings')} 
-          className={activeTab === 'bookings' ? 'active' : ''}
-        >
+        <button onClick={() => setActiveTab('bookings')} className={activeTab === 'bookings' ? 'active' : ''}>
           Booking Management
         </button>
       </div>
@@ -319,13 +290,8 @@ const AdminDashboard = ({ showToast }) => {
               onChange={(e) => setNewFaculty({ ...newFaculty, name: e.target.value })}
               required 
             />
-            {/* Department dropdown with text-wrap styling */}
             <select
-              style={{
-                maxWidth: '100%',
-                whiteSpace: 'normal',
-                overflowWrap: 'break-word'
-              }}
+              style={{ maxWidth: '100%', whiteSpace: 'normal', overflowWrap: 'break-word' }}
               value={newFaculty.department}
               onChange={(e) => setNewFaculty({ ...newFaculty, department: e.target.value })}
               required
@@ -370,16 +336,7 @@ const AdminDashboard = ({ showToast }) => {
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                  <th
-                    style={{
-                      // Wrap department column text
-                      maxWidth: '120px',
-                      whiteSpace: 'normal',
-                      wordWrap: 'break-word'
-                    }}
-                  >
-                    Department
-                  </th>
+                  <th style={{ maxWidth: '120px', whiteSpace: 'normal', wordWrap: 'break-word' }}>Department</th>
                   <th>Position</th>
                   <th>Username</th>
                   <th>Password</th>
@@ -402,11 +359,7 @@ const AdminDashboard = ({ showToast }) => {
                         </td>
                         <td>
                           <select
-                            style={{
-                              maxWidth: '120px',
-                              whiteSpace: 'normal',
-                              wordWrap: 'break-word'
-                            }}
+                            style={{ maxWidth: '120px', whiteSpace: 'normal', wordWrap: 'break-word' }}
                             name="department"
                             value={editingFacultyData.department}
                             onChange={handleFacultyEditChange}
@@ -454,14 +407,7 @@ const AdminDashboard = ({ showToast }) => {
                     ) : (
                       <>
                         <td>{faculty.name}</td>
-                        {/* Wrap department cell */}
-                        <td
-                          style={{
-                            maxWidth: '120px',
-                            whiteSpace: 'normal',
-                            wordWrap: 'break-word'
-                          }}
-                        >
+                        <td style={{ maxWidth: '120px', whiteSpace: 'normal', wordWrap: 'break-word' }}>
                           {faculty.department}
                         </td>
                         <td>{faculty.position}</td>
@@ -492,18 +438,13 @@ const AdminDashboard = ({ showToast }) => {
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>
             </select>
+            <label>Filter by Date:</label>
+            <input type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
+            <label>Filter by Start Time:</label>
+            <input type="time" value={filterTime} onChange={(e) => setFilterTime(e.target.value)} />
+            <button onClick={fetchBookings}>Apply Filters</button>
           </div>
-          {/* 
-            2. Vertically scrollable bookings table
-            Give it a fixed max height and overflow-y: auto
-          */}
-          <div
-            className="table-responsive"
-            style={{
-              maxHeight: '400px', // adjust as needed
-              overflowY: 'auto'
-            }}
-          >
+          <div className="table-responsive" style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <table style={{ tableLayout: 'auto' }}>
               <thead>
                 <tr>
