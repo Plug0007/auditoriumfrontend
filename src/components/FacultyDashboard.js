@@ -102,7 +102,7 @@ const FacultyDashboard = ({ showToast }) => {
     try {
       showToast("Calculating your booking...", "info");
 
-      // If "Other" + user typed text
+      // If "Other" + user typed text, use that as event type
       let finalEventType = bookingData.eventType;
       if (bookingData.eventType === 'Other' && bookingData.customEventType.trim() !== '') {
         finalEventType = bookingData.customEventType.trim();
@@ -429,7 +429,8 @@ const FacultyDashboard = ({ showToast }) => {
                         <td>{b.startTime} - {b.endTime}</td>
                         <td>{b.status}</td>
                         <td>
-                          {b.status === 'Pending' && (
+                          {/* Allow editing if status is not Rejected */}
+                          {b.status !== 'Rejected' && (
                             <button 
                               onClick={() => startEditBooking(b)} 
                               className="btn-edit"
