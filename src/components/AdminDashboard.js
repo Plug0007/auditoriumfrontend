@@ -4,7 +4,6 @@ import '../styles/AdminDashboard.css';
 
 const DEPARTMENTS = [
   "Office",
-  "Political Science - Junior College",
   "Arabic - Junior College",
   "Biology - Junior College",
   "Chemistry - Junior College",
@@ -17,6 +16,7 @@ const DEPARTMENTS = [
   "Mathematics - Junior College",
   "Physical Education - Junior College",
   "Physics - Junior College",
+  "Political Science - Junior College",
   "Psychology - Junior College",
   "Sociology - Junior College",
   "Urdu - Junior College",
@@ -55,7 +55,35 @@ const DEPARTMENTS = [
   "Ladies/Girls Common Room Committee",
   "Gymkhana Committee",
   "Students Aid Funds Committee",
-  "Library Committee"
+  "Library Committee",
+  "Book Bank Committee",
+  "Attendance Committee",
+  "Discipline Committee",
+  "Science Association",
+  "NSS Coordination Committee",
+  "NCC Coordination Committee",
+  "DLLE",
+  "Time Table Committee",
+  "Research Committee",
+  "Magazine Committee - SADAF",
+  "E-Tabloid ? MyDashBoard",
+  "Scholarship Committee",
+  "Academic Progress Monitoring Committee",
+  "Planning Board",
+  "Sarus Nature Club",
+  "Vocational & Career Guidance Cell",
+  "Media & Public Relation",
+  "Training and Placement Cell",
+  "Canteen & Book Stall Committee",
+  "Avishkar Committee",
+  "International Olympiad Committee",
+  "Degree Certificate Distribution Committee",
+  "Green Club",
+  "Chemistry Club of Maharashtra (CCMC)",
+  "BAF - Degree College",
+  "BMS - Degree College",
+  "Computer Science - Degree College",
+  "Information Technology - Degree College"
 ];
 
 const AdminDashboard = ({ showToast }) => {
