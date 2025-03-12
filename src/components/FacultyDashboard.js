@@ -1,4 +1,3 @@
-// frontend/src/components/FacultyDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
@@ -97,7 +96,7 @@ const FacultyDashboard = ({ showToast }) => {
     }
   };
 
-  // Submit new booking
+  // Submit new booking (auto-approved on backend)
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -132,7 +131,7 @@ const FacultyDashboard = ({ showToast }) => {
           description: ''
         });
         setTimeout(() => {
-          showToast("Your booking request has been sent successfully.", "success");
+          showToast("Your booking has been placed and auto-approved.", "success");
         }, 2000);
         fetchBookings();
       }
@@ -187,7 +186,7 @@ const FacultyDashboard = ({ showToast }) => {
       className="faculty-dashboard"
       style={{
         maxWidth: '100%',
-        overflowX: 'hidden', // no horizontal scroll
+        overflowX: 'hidden',
         margin: '0 auto'
       }}
     >
@@ -209,7 +208,6 @@ const FacultyDashboard = ({ showToast }) => {
         </button>
       </div>
 
-      {/* Container to limit form width */}
       {activeTab === 'newBooking' && (
         <div 
           className="new-booking"
@@ -346,7 +344,6 @@ const FacultyDashboard = ({ showToast }) => {
           }}
         >
           <h3>My Bookings</h3>
-          {/* Make the table scroll vertically */}
           <div 
             className="table-responsive"
             style={{
