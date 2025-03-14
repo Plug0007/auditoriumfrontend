@@ -1,27 +1,45 @@
 import React from 'react';
 import '../styles/Credits.css';
+import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const Credits = () => {
   return (
     <div className="credits-container">
       <div className="credits-card">
-        <h1>Credits</h1>
+        <h1>Maharashtra Cllg App</h1>
+        <p className="tagline">Innovating Through Code & Design</p>
         <p>
-          Designed, Developed, and Secured by <strong>Aadil Badhra</strong> – an emerging cybersecurity student with a passion for coding.
+          Designed, Developed, and Secured by <strong>Aadil Badhra</strong>
         </p>
         <p>
-          Achievements include winning the <strong>VSIT Maske Coder</strong> competition and clearing Stage 1 of the <strong>National Degree Level Code Execution Championship</strong>.
+          Passionate about cybersecurity and building seamless digital experiences.
         </p>
-        <p>
-          Connect on{' '}
+        <div className="social-icons">
           <a
-            href="https://www.linkedin.com/in/aadil-badhra-9082123239a"
+            href="https://www.instagram.com/raelyaan"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Instagram"
           >
-            LinkedIn
-          </a>.
-        </p>
+            <FaInstagram />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/Raelyaan"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://github.com/Plug0007"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <FaGithub />
+          </a>
+        </div>
       </div>
     </div>
   );
