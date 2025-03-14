@@ -19,9 +19,16 @@
 }
 
 .credits-card h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 2.8rem;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.credits-card .tagline {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #777;
+  font-style: italic;
 }
 
 .credits-card p {
@@ -39,6 +46,25 @@
 
 .credits-card a:hover {
   color: #5a67d8;
+}
+
+/* Social Media Icons Styling */
+.social-icons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icons a {
+  color: #667eea;
+  font-size: 2.2rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #5a67d8;
+  transform: translateY(-5px);
 }
 
 @keyframes popIn {
