@@ -6,10 +6,10 @@ const Credits = () => {
   return (
     <div className="credits-container">
       <div className="credits-card">
-        <h1>Maharashtra Cllg App</h1>
+        <h1>BookMyAudi</h1>
         <p className="tagline">Innovating Through Code & Design</p>
         <p>
-          Designed, Developed, and Secured by <strong>Aadil Badhra</strong>
+          Designed, Developed, and Secured by <strong>Aadil Asif Badhra <em>aka Raelyaan</em></strong>
         </p>
         <p>
           Passionate about cybersecurity and building seamless digital experiences.
